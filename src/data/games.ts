@@ -1,0 +1,75 @@
+export type GameStatus = "upcoming" | "live" | "final"
+
+export interface Game {
+  id: string
+  homeTeam: string
+  awayTeam: string
+  homeScore: number | null
+  awayScore: number | null
+  date: string
+  time: string
+  status: GameStatus
+}
+
+export const MOCK_GAMES: Game[] = [
+  {
+    id: "1",
+    awayTeam: "BOS",
+    homeTeam: "NYK",
+    date: "May 22",
+    time: "7:30 PM",
+    homeScore: null,
+    awayScore: null,
+    status: "upcoming",
+  },
+  {
+    id: "2",
+    awayTeam: "LAL",
+    homeTeam: "GSW",
+    date: "May 22",
+    time: "10:00 PM",
+    homeScore: 108,
+    awayScore: 104,
+    status: "live",
+  },
+  {
+    id: "3",
+    awayTeam: "MIA",
+    homeTeam: "BOS",
+    date: "May 21",
+    time: "8:00 PM",
+    homeScore: 112,
+    awayScore: 99,
+    status: "final",
+  },
+  {
+    id: "4",
+    awayTeam: "DEN",
+    homeTeam: "OKC",
+    date: "May 23",
+    time: "9:00 PM",
+    homeScore: null,
+    awayScore: null,
+    status: "upcoming",
+  },
+  {
+    id: "5",
+    awayTeam: "NYK",
+    homeTeam: "PHI",
+    date: "May 23",
+    time: "7:00 PM",
+    homeScore: null,
+    awayScore: null,
+    status: "upcoming",
+  },
+  {
+    id: "6",
+    awayTeam: "MIL",
+    homeTeam: "IND",
+    date: "May 21",
+    time: "7:00 PM",
+    homeScore: 120,
+    awayScore: 115,
+    status: "final",
+  },
+]

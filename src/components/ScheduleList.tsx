@@ -1,14 +1,16 @@
 import { useMemo } from "react"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 
-import GameCard, { type Game } from "./GameCard"
+import { type Game } from "../data/games"
+import GameCard from "./GameCard"
 
 interface ScheduleListProps {
   games: Game[]
   selectedTeam: string | null
+  onPressGame?: (game: Game) => void
 }
 
-const ScheduleList: React.FC<ScheduleListProps> = ({ games, selectedTeam }) => {
+const ScheduleList: React.FC<ScheduleListProps> = ({ games, selectedTeam, onPressGame }) => {
   const filtered = useMemo(() => {
     if (!selectedTeam) return games
     return games.filter(
@@ -20,7 +22,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ games, selectedTeam }) => {
     <FlatList
       data={filtered}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <GameCard game={item} />}
+      renderItem={({ item }) => <GameCard game={item} onPress={onPressGame} />}
       contentContainerStyle={styles.content}
       ListEmptyComponent={
         <View style={styles.empty}>

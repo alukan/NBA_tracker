@@ -1,21 +1,12 @@
-import { useState } from "react"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 
-export type GameStatus = "upcoming" | "live" | "final"
+import { type Game, type GameStatus } from "../data/games"
 
-export interface Game {
-  id: string
-  homeTeam: string
-  awayTeam: string
-  homeScore: number | null
-  awayScore: number | null
-  date: string
-  time: string
-  status: GameStatus
-}
+export type { Game, GameStatus }
 
 interface GameCardProps {
   game: Game
+  onPress?: (game: Game) => void
 }
 
 const STATUS_LABEL: Record<GameStatus, string> = {
@@ -24,16 +15,14 @@ const STATUS_LABEL: Record<GameStatus, string> = {
   final: "Final",
 }
 
-const GameCard: React.FC<GameCardProps> = ({ game }) => {
-  const [expanded, setExpanded] = useState(false)
-
+const GameCard: React.FC<GameCardProps> = ({ game, onPress }) => {
   const isLive = game.status === "live"
-  const hasSores = game.homeScore !== null && game.awayScore !== null
+  const hasScores = game.homeScore !== null && game.awayScore !== null
 
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => { setExpanded((v) => !v) }}
+      onPress={() => { onPress?.(game) }}
       activeOpacity={0.8}
     >
       <View style={styles.row}>
@@ -43,7 +32,7 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
           <Text style={styles.team}>{game.homeTeam}</Text>
         </View>
 
-        {hasSores ? (
+        {hasScores ? (
           <View style={styles.scores}>
             <Text style={[styles.score, isLive && styles.scoreLive]}>
               {game.awayScore}
@@ -64,17 +53,6 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
           {STATUS_LABEL[game.status]}
         </Text>
       </View>
-
-      {expanded && (
-        <View style={styles.detail}>
-          <Text style={styles.detailText}>
-            {game.awayTeam} vs {game.homeTeam}
-          </Text>
-          <Text style={styles.detailText}>
-            {game.date} · {game.time}
-          </Text>
-        </View>
-      )}
     </TouchableOpacity>
   )
 }
@@ -146,16 +124,5 @@ const styles = StyleSheet.create({
   },
   statusLive: {
     color: "#e94560",
-  },
-  detail: {
-    marginTop: 10,
-    paddingTop: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#2a2a4e",
-    gap: 4,
-  },
-  detailText: {
-    color: "#aaa",
-    fontSize: 13,
   },
 })
