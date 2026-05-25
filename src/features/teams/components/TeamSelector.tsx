@@ -7,6 +7,8 @@ import {
   View,
 } from "react-native"
 
+import { colors } from "@shared"
+
 const NBA_TEAMS = [
   "ATL", "BOS", "BKN", "CHA", "CHI", "CLE", "DAL", "DEN",
   "DET", "GSW", "HOU", "IND", "LAC", "LAL", "MEM", "MIA",
@@ -19,7 +21,7 @@ interface TeamSelectorProps {
   onSelect: (team: string) => void
 }
 
-const TeamSelector: React.FC<TeamSelectorProps> = ({ selected, onSelect }) => {
+export function TeamSelector({ selected, onSelect }: TeamSelectorProps) {
   const scrollRef = useRef<ScrollView>(null)
 
   return (
@@ -52,17 +54,15 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({ selected, onSelect }) => {
   )
 }
 
-export default TeamSelector
-
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 12,
-    backgroundColor: "#16213e",
+    backgroundColor: colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: "#2a2a4e",
+    borderBottomColor: colors.border,
   },
   label: {
-    color: "#888",
+    color: colors.textMuted,
     fontSize: 11,
     fontWeight: "600",
     letterSpacing: 1,
@@ -80,11 +80,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: "#444",
-    backgroundColor: "#0f0f23",
+    backgroundColor: colors.bg,
   },
   chipSelected: {
-    backgroundColor: "#c9a84c",
-    borderColor: "#c9a84c",
+    backgroundColor: colors.accent,
+    borderColor: colors.accent,
   },
   chipText: {
     color: "#aaa",

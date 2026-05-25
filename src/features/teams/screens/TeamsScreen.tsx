@@ -2,12 +2,14 @@ import { StyleSheet, View } from "react-native"
 
 import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 
-import TeamSelector from "../components/TeamSelector"
-import { type TeamsStackParamList } from "../navigation/types"
+import { colors } from "@shared"
+
+import { TeamSelector } from "../components/TeamSelector"
+import { type TeamsStackParamList } from "../../../navigation/types"
 
 type Props = NativeStackScreenProps<TeamsStackParamList, "TeamsList">
 
-export default function TeamsScreen({ navigation }: Props) {
+export function TeamsScreen({ navigation }: Props) {
   return (
     <View style={styles.root}>
       <TeamSelector
@@ -23,6 +25,6 @@ export default function TeamsScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "#0f0f23",
+    backgroundColor: colors.bg,
   },
 })

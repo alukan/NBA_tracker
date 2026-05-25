@@ -2,17 +2,17 @@ import { StyleSheet, Text, View } from "react-native"
 
 import { useRoute, type RouteProp } from "@react-navigation/native"
 
-import { MOCK_GAMES } from "../data/games"
+import { colors, MOCK_GAMES } from "@shared"
 
 type GameDetailRoute = RouteProp<{ GameDetail: { gameId: string } }, "GameDetail">
 
 const STATUS_COLOR: Record<string, string> = {
-  live: "#e94560",
-  final: "#888",
-  upcoming: "#c9a84c",
+  live: colors.live,
+  final: colors.textMuted,
+  upcoming: colors.accent,
 }
 
-export default function GameDetailScreen() {
+export function GameDetailScreen() {
   const route = useRoute<GameDetailRoute>()
   const game = MOCK_GAMES.find((g) => g.id === route.params.gameId)
 
@@ -24,7 +24,7 @@ export default function GameDetailScreen() {
     )
   }
 
-  const statusColor = STATUS_COLOR[game.status] ?? "#888"
+  const statusColor = STATUS_COLOR[game.status] ?? colors.textMuted
   const hasScores = game.homeScore !== null && game.awayScore !== null
 
   return (
@@ -73,15 +73,15 @@ export default function GameDetailScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "#0f0f23",
+    backgroundColor: colors.bg,
     padding: 16,
   },
   card: {
-    backgroundColor: "#16213e",
+    backgroundColor: colors.surface,
     borderRadius: 14,
     padding: 24,
     borderWidth: 1,
-    borderColor: "#2a2a4e",
+    borderColor: colors.border,
     alignItems: "center",
     gap: 20,
   },
@@ -101,12 +101,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   teamName: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 28,
     fontWeight: "800",
   },
   teamLabel: {
-    color: "#666",
+    color: colors.textDim,
     fontSize: 12,
     marginTop: 4,
   },
@@ -118,12 +118,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   score: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 36,
     fontWeight: "bold",
   },
   scoreLive: {
-    color: "#c9a84c",
+    color: colors.accent,
   },
   scoreDash: {
     color: "#555",
@@ -142,14 +142,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   metaText: {
-    color: "#888",
+    color: colors.textMuted,
     fontSize: 14,
   },
   metaDot: {
     color: "#555",
   },
   notFound: {
-    color: "#888",
+    color: colors.textMuted,
     textAlign: "center",
     marginTop: 40,
     fontSize: 16,

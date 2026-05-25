@@ -1,8 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 
-import { type Game, type GameStatus } from "../data/games"
-
-export type { Game, GameStatus }
+import { colors } from "@shared"
+import { type Game, type GameStatus } from "@shared"
 
 interface GameCardProps {
   game: Game
@@ -15,7 +14,7 @@ const STATUS_LABEL: Record<GameStatus, string> = {
   final: "Final",
 }
 
-const GameCard: React.FC<GameCardProps> = ({ game, onPress }) => {
+export function GameCard({ game, onPress }: GameCardProps) {
   const isLive = game.status === "live"
   const hasScores = game.homeScore !== null && game.awayScore !== null
 
@@ -57,17 +56,15 @@ const GameCard: React.FC<GameCardProps> = ({ game, onPress }) => {
   )
 }
 
-export default GameCard
-
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#16213e",
+    backgroundColor: colors.surface,
     marginHorizontal: 12,
     marginVertical: 6,
     borderRadius: 10,
     padding: 14,
     borderWidth: 1,
-    borderColor: "#2a2a4e",
+    borderColor: colors.border,
   },
   row: {
     flexDirection: "row",
@@ -80,12 +77,12 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   team: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 16,
     fontWeight: "700",
   },
   vs: {
-    color: "#666",
+    color: colors.textDim,
     fontSize: 13,
   },
   scores: {
@@ -94,15 +91,15 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   score: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 18,
     fontWeight: "bold",
   },
   scoreLive: {
-    color: "#c9a84c",
+    color: colors.accent,
   },
   scoreDash: {
-    color: "#666",
+    color: colors.textDim,
   },
   time: {
     color: "#aaa",
@@ -114,15 +111,15 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   date: {
-    color: "#666",
+    color: colors.textDim,
     fontSize: 12,
   },
   status: {
-    color: "#888",
+    color: colors.textMuted,
     fontSize: 12,
     fontWeight: "600",
   },
   statusLive: {
-    color: "#e94560",
+    color: colors.live,
   },
 })

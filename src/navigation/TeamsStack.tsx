@@ -1,20 +1,21 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import GameDetailScreen from "../screens/GameDetailScreen"
-import TeamScheduleScreen from "../screens/TeamScheduleScreen"
-import TeamsScreen from "../screens/TeamsScreen"
+import { colors } from "@shared"
+import { GameDetailScreen } from "../features/schedule/screens/GameDetailScreen"
+import { TeamsScreen } from "../features/teams/screens/TeamsScreen"
+import { TeamScheduleScreen } from "../features/teams/screens/TeamScheduleScreen"
 import { type TeamsStackParamList } from "./types"
 
 const Stack = createNativeStackNavigator<TeamsStackParamList>()
 
-const headerStyle = { backgroundColor: "#1a1a2e" } as const
+const headerStyle = { backgroundColor: colors.header } as const
 
 export default function TeamsStack() {
   return (
     <Stack.Navigator
       screenOptions={{
         headerStyle,
-        headerTintColor: "#ffffff",
+        headerTintColor: colors.text,
         headerTitleStyle: { fontWeight: "bold" },
       }}
     >

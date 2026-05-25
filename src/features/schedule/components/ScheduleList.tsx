@@ -1,8 +1,9 @@
 import { useMemo } from "react"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 
-import { type Game } from "../data/games"
-import GameCard from "./GameCard"
+import { colors, type Game } from "@shared"
+
+import { GameCard } from "./GameCard"
 
 interface ScheduleListProps {
   games: Game[]
@@ -10,7 +11,7 @@ interface ScheduleListProps {
   onPressGame?: (game: Game) => void
 }
 
-const ScheduleList: React.FC<ScheduleListProps> = ({ games, selectedTeam, onPressGame }) => {
+export function ScheduleList({ games, selectedTeam, onPressGame }: ScheduleListProps) {
   const filtered = useMemo(() => {
     if (!selectedTeam) return games
     return games.filter(
@@ -38,14 +39,12 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ games, selectedTeam, onPres
   )
 }
 
-export default ScheduleList
-
 const styles = StyleSheet.create({
   content: {
     paddingBottom: 24,
   },
   header: {
-    color: "#888",
+    color: colors.textMuted,
     fontSize: 11,
     fontWeight: "600",
     letterSpacing: 1,
