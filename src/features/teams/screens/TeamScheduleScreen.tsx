@@ -1,8 +1,14 @@
+/**
+ * Reusability: LOW — page-level screen.
+ * Specific to the team-filtered schedule view. Not intended for reuse.
+ */
+
 import { StyleSheet, View } from "react-native"
 
 import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 
-import { colors, MOCK_GAMES } from "@shared"
+import { colors } from "@ds"
+import { MOCK_GAMES } from "@shared"
 
 import { ScheduleList } from "../../schedule/components/ScheduleList"
 import { type TeamsStackParamList } from "../../../navigation/types"

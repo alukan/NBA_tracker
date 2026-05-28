@@ -1,8 +1,13 @@
+/**
+ * Reusability: LOW — page-level screen.
+ * Specific to the Teams tab entry point. Not intended for reuse.
+ */
+
 import { StyleSheet, View } from "react-native"
 
 import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 
-import { colors } from "@shared"
+import { colors } from "@ds"
 
 import { TeamSelector } from "../components/TeamSelector"
 import { type TeamsStackParamList } from "../../../navigation/types"

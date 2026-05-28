@@ -1,8 +1,16 @@
-import { StyleSheet, Text, View } from "react-native"
+/**
+ * Reusability: LOW — page-level screen.
+ * Specific to the Game Detail view. Not intended for reuse.
+ * Styling is handled primarily by design system components (Card, Text, Badge).
+ */
+
+import { StyleSheet, View } from "react-native"
 
 import { useRoute, type RouteProp } from "@react-navigation/native"
 
-import { colors, MOCK_GAMES } from "@shared"
+import { Badge, Card, Text } from "@ds"
+import { colors, fontSize, spacing } from "@ds"
+import { MOCK_GAMES } from "@shared"
 
 type GameDetailRoute = RouteProp<{ GameDetail: { gameId: string } }, "GameDetail">
 
@@ -19,34 +27,35 @@ export function GameDetailScreen() {
   if (!game) {
     return (
       <View style={styles.root}>
-        <Text style={styles.notFound}>Game not found.</Text>
+        <Text variant="body" color={colors.textMuted} style={styles.notFound}>
+          Game not found.
+        </Text>
       </View>
     )
   }
 
   const statusColor = STATUS_COLOR[game.status] ?? colors.textMuted
   const hasScores = game.homeScore !== null && game.awayScore !== null
+  const isLive = game.status === "live"
 
   return (
     <View style={styles.root}>
-      <View style={styles.card}>
-        <Text style={[styles.status, { color: statusColor }]}>
-          {game.status.toUpperCase()}
-        </Text>
+      <Card style={styles.card}>
+        <Badge label={game.status.toUpperCase()} color={statusColor} />
 
         <View style={styles.matchup}>
           <View style={styles.team}>
-            <Text style={styles.teamName}>{game.awayTeam}</Text>
-            <Text style={styles.teamLabel}>Away</Text>
+            <Text variant="heading">{game.awayTeam}</Text>
+            <Text variant="caption" style={styles.teamLabel}>Away</Text>
           </View>
 
           {hasScores ? (
             <View style={styles.scoreBox}>
-              <Text style={[styles.score, game.status === "live" && styles.scoreLive]}>
+              <Text variant="score" color={isLive ? colors.accent : undefined}>
                 {game.awayScore}
               </Text>
               <Text style={styles.scoreDash}>–</Text>
-              <Text style={[styles.score, game.status === "live" && styles.scoreLive]}>
+              <Text variant="score" color={isLive ? colors.accent : undefined}>
                 {game.homeScore}
               </Text>
             </View>
@@ -55,17 +64,17 @@ export function GameDetailScreen() {
           )}
 
           <View style={styles.team}>
-            <Text style={styles.teamName}>{game.homeTeam}</Text>
-            <Text style={styles.teamLabel}>Home</Text>
+            <Text variant="heading">{game.homeTeam}</Text>
+            <Text variant="caption" style={styles.teamLabel}>Home</Text>
           </View>
         </View>
 
         <View style={styles.meta}>
-          <Text style={styles.metaText}>{game.date}</Text>
-          <Text style={styles.metaDot}>·</Text>
-          <Text style={styles.metaText}>{game.time}</Text>
+          <Text variant="body" color={colors.textMuted}>{game.date}</Text>
+          <Text variant="dim">·</Text>
+          <Text variant="body" color={colors.textMuted}>{game.time}</Text>
         </View>
-      </View>
+      </Card>
     </View>
   )
 }
@@ -74,21 +83,13 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: colors.bg,
-    padding: 16,
+    padding: spacing.xl,
   },
   card: {
-    backgroundColor: colors.surface,
     borderRadius: 14,
-    padding: 24,
-    borderWidth: 1,
-    borderColor: colors.border,
+    padding: spacing.xxxl,
     alignItems: "center",
-    gap: 20,
-  },
-  status: {
-    fontSize: 12,
-    fontWeight: "700",
-    letterSpacing: 1.5,
+    gap: spacing.xxl,
   },
   matchup: {
     flexDirection: "row",
@@ -100,58 +101,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
-  teamName: {
-    color: colors.text,
-    fontSize: 28,
-    fontWeight: "800",
-  },
   teamLabel: {
-    color: colors.textDim,
-    fontSize: 12,
-    marginTop: 4,
+    marginTop: spacing.xs,
   },
   scoreBox: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: spacing.md,
     flex: 1,
     justifyContent: "center",
   },
-  score: {
-    color: colors.text,
-    fontSize: 36,
-    fontWeight: "bold",
-  },
-  scoreLive: {
-    color: colors.accent,
-  },
   scoreDash: {
-    color: "#555",
-    fontSize: 28,
+    color: colors.textFaint,
+    fontSize: fontSize.xxl,
   },
   vs: {
-    color: "#555",
-    fontSize: 22,
+    color: colors.textFaint,
+    fontSize: fontSize.xl,
     fontWeight: "700",
     flex: 1,
     textAlign: "center",
   },
   meta: {
     flexDirection: "row",
-    gap: 8,
+    gap: spacing.md,
     alignItems: "center",
   },
-  metaText: {
-    color: colors.textMuted,
-    fontSize: 14,
-  },
-  metaDot: {
-    color: "#555",
-  },
   notFound: {
-    color: colors.textMuted,
     textAlign: "center",
     marginTop: 40,
-    fontSize: 16,
   },
 })

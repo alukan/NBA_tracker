@@ -1,9 +1,15 @@
+/**
+ * Reusability: LOW — page-level screen.
+ * Specific to the Schedule tab. Not intended for reuse.
+ */
+
 import { useCallback, useState } from "react"
 import { StyleSheet, View } from "react-native"
 
 import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 
-import { colors, MOCK_GAMES } from "@shared"
+import { colors } from "@ds"
+import { MOCK_GAMES } from "@shared"
 
 import { ScheduleList } from "../components/ScheduleList"
 import { TeamSelector } from "../../teams/components/TeamSelector"

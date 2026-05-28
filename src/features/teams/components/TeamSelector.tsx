@@ -1,13 +1,14 @@
-import { useRef } from "react"
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native"
+/**
+ * Reusability: MEDIUM — NBA team filter bar.
+ * Reusable wherever a horizontal NBA team chip selector is needed,
+ * but tied to the hardcoded NBA team list.
+ */
 
-import { colors } from "@shared"
+import { useRef } from "react"
+import { ScrollView, StyleSheet, View } from "react-native"
+
+import { Chip, Text } from "@ds"
+import { colors, spacing } from "@ds"
 
 const NBA_TEAMS = [
   "ATL", "BOS", "BKN", "CHA", "CHI", "CLE", "DAL", "DEN",
@@ -26,7 +27,7 @@ export function TeamSelector({ selected, onSelect }: TeamSelectorProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Favorite Team</Text>
+      <Text variant="label" style={styles.sectionLabel}>Favorite Team</Text>
       <ScrollView
         ref={scrollRef}
         horizontal
@@ -34,20 +35,12 @@ export function TeamSelector({ selected, onSelect }: TeamSelectorProps) {
         contentContainerStyle={styles.scroll}
       >
         {NBA_TEAMS.map((team) => (
-          <TouchableOpacity
+          <Chip
             key={team}
-            style={[styles.chip, selected === team && styles.chipSelected]}
+            label={team}
+            selected={selected === team}
             onPress={() => { onSelect(team) }}
-          >
-            <Text
-              style={[
-                styles.chipText,
-                selected === team && styles.chipTextSelected,
-              ]}
-            >
-              {team}
-            </Text>
-          </TouchableOpacity>
+          />
         ))}
       </ScrollView>
     </View>
@@ -56,42 +49,17 @@ export function TeamSelector({ selected, onSelect }: TeamSelectorProps) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 12,
+    paddingVertical: spacing.lg,
     backgroundColor: colors.surface,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
   },
-  label: {
-    color: colors.textMuted,
-    fontSize: 11,
-    fontWeight: "600",
-    letterSpacing: 1,
-    textTransform: "uppercase",
-    paddingHorizontal: 16,
-    marginBottom: 8,
+  sectionLabel: {
+    paddingHorizontal: spacing.xl,
+    marginBottom: spacing.md,
   },
   scroll: {
-    paddingHorizontal: 12,
-    gap: 8,
-  },
-  chip: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#444",
-    backgroundColor: colors.bg,
-  },
-  chipSelected: {
-    backgroundColor: colors.accent,
-    borderColor: colors.accent,
-  },
-  chipText: {
-    color: "#aaa",
-    fontSize: 13,
-    fontWeight: "600",
-  },
-  chipTextSelected: {
-    color: "#000",
+    paddingHorizontal: spacing.lg,
+    gap: spacing.md,
   },
 })

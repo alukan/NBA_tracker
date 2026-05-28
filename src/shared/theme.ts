@@ -1,11 +1,3 @@
-export const colors = {
-  bg: "#0f0f23",
-  surface: "#16213e",
-  header: "#1a1a2e",
-  border: "#2a2a4e",
-  text: "#ffffff",
-  textMuted: "#888888",
-  textDim: "#666666",
-  accent: "#c9a84c",
-  live: "#e94560",
-} as const
+// Re-export semantic color tokens from the design system.
+// Primitive values (palette, spacing, etc.) live in src/design-system/tokens.ts.
+export { colors } from "../design-system/tokens"

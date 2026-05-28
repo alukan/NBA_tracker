@@ -1,7 +1,15 @@
-import { useMemo } from "react"
-import { FlatList, StyleSheet, Text, View } from "react-native"
+/**
+ * Reusability: MEDIUM — NBA schedule list.
+ * Reusable across any screen that needs to show a filtered list of NBA games,
+ * but tied to the Game domain model.
+ */
 
-import { colors, type Game } from "@shared"
+import { useMemo } from "react"
+import { FlatList, StyleSheet, View } from "react-native"
+
+import { Text } from "@ds"
+import { spacing } from "@ds"
+import { type Game } from "@shared"
 
 import { GameCard } from "./GameCard"
 
@@ -27,11 +35,11 @@ export function ScheduleList({ games, selectedTeam, onPressGame }: ScheduleListP
       contentContainerStyle={styles.content}
       ListEmptyComponent={
         <View style={styles.empty}>
-          <Text style={styles.emptyText}>No games found.</Text>
+          <Text variant="dim">No games found.</Text>
         </View>
       }
       ListHeaderComponent={
-        <Text style={styles.header}>
+        <Text variant="label" style={styles.header}>
           {selectedTeam ? `${selectedTeam} Schedule` : "All Games"}
         </Text>
       }
@@ -41,24 +49,15 @@ export function ScheduleList({ games, selectedTeam, onPressGame }: ScheduleListP
 
 const styles = StyleSheet.create({
   content: {
-    paddingBottom: 24,
+    paddingBottom: spacing.xxxl,
   },
   header: {
-    color: colors.textMuted,
-    fontSize: 11,
-    fontWeight: "600",
-    letterSpacing: 1,
-    textTransform: "uppercase",
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 4,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xl,
+    paddingBottom: spacing.xs,
   },
   empty: {
     alignItems: "center",
     paddingTop: 60,
-  },
-  emptyText: {
-    color: "#555",
-    fontSize: 15,
   },
 })

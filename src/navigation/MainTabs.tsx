@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Text } from "react-native"
 
-import { colors } from "@shared"
+import { colors, fontSize } from "@ds"
 
 import ScheduleStack from "./ScheduleStack"
 import TeamsStack from "./TeamsStack"
@@ -23,14 +23,14 @@ export default function MainTabs() {
         name="Schedule"
         component={ScheduleStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>📅</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: fontSize.xxl }}>📅</Text>,
         }}
       />
       <Tab.Screen
         name="Teams"
         component={TeamsStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>🏀</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: fontSize.xxl }}>🏀</Text>,
         }}
       />
     </Tab.Navigator>

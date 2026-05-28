@@ -1,6 +1,13 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+/**
+ * Reusability: MEDIUM — NBA game card.
+ * Tied to the Game domain model. Reusable anywhere an NBA game needs to be displayed,
+ * but not suitable outside the NBA schedule context.
+ */
 
-import { colors } from "@shared"
+import { StyleSheet, View } from "react-native"
+
+import { Badge, Card, Text } from "@ds"
+import { colors, spacing } from "@ds"
 import { type Game, type GameStatus } from "@shared"
 
 interface GameCardProps {
@@ -19,52 +26,55 @@ export function GameCard({ game, onPress }: GameCardProps) {
   const hasScores = game.homeScore !== null && game.awayScore !== null
 
   return (
-    <TouchableOpacity
+    <Card
       style={styles.card}
-      onPress={() => { onPress?.(game) }}
-      activeOpacity={0.8}
+      onPress={onPress != null ? () => { onPress(game) } : undefined}
     >
       <View style={styles.row}>
         <View style={styles.teams}>
-          <Text style={styles.team}>{game.awayTeam}</Text>
-          <Text style={styles.vs}>@</Text>
-          <Text style={styles.team}>{game.homeTeam}</Text>
+          <Text variant="subheading">{game.awayTeam}</Text>
+          <Text variant="dim">@</Text>
+          <Text variant="subheading">{game.homeTeam}</Text>
         </View>
 
         {hasScores ? (
           <View style={styles.scores}>
-            <Text style={[styles.score, isLive && styles.scoreLive]}>
+            <Text
+              variant="subheading"
+              style={styles.score}
+              color={isLive ? colors.accent : undefined}
+            >
               {game.awayScore}
             </Text>
-            <Text style={styles.scoreDash}>-</Text>
-            <Text style={[styles.score, isLive && styles.scoreLive]}>
+            <Text variant="dim">-</Text>
+            <Text
+              variant="subheading"
+              style={styles.score}
+              color={isLive ? colors.accent : undefined}
+            >
               {game.homeScore}
             </Text>
           </View>
         ) : (
-          <Text style={styles.time}>{game.time}</Text>
+          <Text variant="dim">{game.time}</Text>
         )}
       </View>
 
       <View style={styles.meta}>
-        <Text style={styles.date}>{game.date}</Text>
-        <Text style={[styles.status, isLive && styles.statusLive]}>
-          {STATUS_LABEL[game.status]}
-        </Text>
+        <Text variant="caption">{game.date}</Text>
+        <Badge
+          label={STATUS_LABEL[game.status]}
+          color={isLive ? colors.live : colors.textMuted}
+        />
       </View>
-    </TouchableOpacity>
+    </Card>
   )
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    marginHorizontal: 12,
-    marginVertical: 6,
-    borderRadius: 10,
-    padding: 14,
-    borderWidth: 1,
-    borderColor: colors.border,
+    marginHorizontal: spacing.lg,
+    marginVertical: spacing.sm,
   },
   row: {
     flexDirection: "row",
@@ -74,52 +84,20 @@ const styles = StyleSheet.create({
   teams: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-  },
-  team: {
-    color: colors.text,
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  vs: {
-    color: colors.textDim,
-    fontSize: 13,
+    gap: spacing.md,
   },
   scores: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: spacing.xs,
   },
   score: {
-    color: colors.text,
     fontSize: 18,
     fontWeight: "bold",
-  },
-  scoreLive: {
-    color: colors.accent,
-  },
-  scoreDash: {
-    color: colors.textDim,
-  },
-  time: {
-    color: "#aaa",
-    fontSize: 14,
   },
   meta: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 6,
-  },
-  date: {
-    color: colors.textDim,
-    fontSize: 12,
-  },
-  status: {
-    color: colors.textMuted,
-    fontSize: 12,
-    fontWeight: "600",
-  },
-  statusLive: {
-    color: colors.live,
+    marginTop: spacing.sm,
   },
 })
