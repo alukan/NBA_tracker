@@ -3,7 +3,7 @@
  * Specific to the Schedule tab. Not intended for reuse.
  */
 
-import { useCallback, useState } from "react"
+import { useCallback } from "react"
 import { StyleSheet, View } from "react-native"
 
 import type { NativeStackScreenProps } from "@react-navigation/native-stack"
@@ -11,6 +11,7 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { colors } from "@ds"
 import { MOCK_GAMES } from "@shared"
 
+import { useFavoriteTeam } from "../../../hooks/useFavoriteTeam"
 import { ScheduleList } from "../components/ScheduleList"
 import { TeamSelector } from "../../teams/components/TeamSelector"
 import { type ScheduleStackParamList } from "../../../navigation/types"
@@ -18,18 +19,21 @@ import { type ScheduleStackParamList } from "../../../navigation/types"
 type Props = NativeStackScreenProps<ScheduleStackParamList, "ScheduleList">
 
 export function ScheduleScreen({ navigation }: Props) {
-  const [selectedTeam, setSelectedTeam] = useState<string | null>(null)
+  const { favoriteTeam, setFavoriteTeam, isLoading } = useFavoriteTeam()
 
-  const handleSelectTeam = useCallback((team: string) => {
-    setSelectedTeam((prev) => (prev === team ? null : team))
-  }, [])
+  const handleSelectTeam = useCallback(
+    (team: string) => {
+      setFavoriteTeam(favoriteTeam === team ? null : team)
+    },
+    [favoriteTeam, setFavoriteTeam],
+  )
 
   return (
     <View style={styles.root}>
-      <TeamSelector selected={selectedTeam} onSelect={handleSelectTeam} />
+      <TeamSelector selected={isLoading ? null : favoriteTeam} onSelect={handleSelectTeam} />
       <ScheduleList
         games={MOCK_GAMES}
-        selectedTeam={selectedTeam}
+        selectedTeam={isLoading ? null : favoriteTeam}
         onPressGame={(game) => {
           navigation.navigate("GameDetail", { gameId: game.id })
         }}
