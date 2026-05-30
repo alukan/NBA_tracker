@@ -17,9 +17,11 @@ interface ScheduleListProps {
   games: Game[]
   selectedTeam: string | null
   onPressGame?: (game: Game) => void
+  spoilerFreeMode?: boolean
+  use24HourTime?: boolean
 }
 
-export function ScheduleList({ games, selectedTeam, onPressGame }: ScheduleListProps) {
+export function ScheduleList({ games, selectedTeam, onPressGame, spoilerFreeMode = false, use24HourTime = false }: ScheduleListProps) {
   const filtered = useMemo(() => {
     if (!selectedTeam) return games
     return games.filter(
@@ -31,7 +33,7 @@ export function ScheduleList({ games, selectedTeam, onPressGame }: ScheduleListP
     <FlatList
       data={filtered}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <GameCard game={item} onPress={onPressGame} />}
+      renderItem={({ item }) => <GameCard game={item} onPress={onPressGame} spoilerFreeMode={spoilerFreeMode} use24HourTime={use24HourTime} />}
       contentContainerStyle={styles.content}
       ListEmptyComponent={
         <View style={styles.empty}>

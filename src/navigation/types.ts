@@ -11,9 +11,14 @@ export type TeamsStackParamList = {
   GameDetail: { gameId: string }
 }
 
+export type SettingsStackParamList = {
+  Settings: undefined
+}
+
 export type MainTabsParamList = {
   Schedule: NavigatorScreenParams<ScheduleStackParamList>
   Teams: NavigatorScreenParams<TeamsStackParamList>
+  Settings: NavigatorScreenParams<SettingsStackParamList>
 }
 
 export type RootStackParamList = {

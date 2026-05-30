@@ -4,6 +4,7 @@ import { Text } from "react-native"
 import { colors, fontSize } from "@ds"
 
 import ScheduleStack from "./ScheduleStack"
+import SettingsStack from "./SettingsStack"
 import TeamsStack from "./TeamsStack"
 import { type MainTabsParamList } from "./types"
 
@@ -31,6 +32,13 @@ export default function MainTabs() {
         component={TeamsStack}
         options={{
           tabBarIcon: ({ color }) => <Text style={{ color, fontSize: fontSize.xxl }}>🏀</Text>,
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsStack}
+        options={{
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: fontSize.xxl }}>⚙️</Text>,
         }}
       />
     </Tab.Navigator>

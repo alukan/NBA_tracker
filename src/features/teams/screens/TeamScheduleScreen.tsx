@@ -10,6 +10,7 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { colors } from "@ds"
 import { MOCK_GAMES } from "@shared"
 
+import { useAppSettings } from "../../../context/SettingsContext"
 import { ScheduleList } from "../../schedule/components/ScheduleList"
 import { type TeamsStackParamList } from "../../../navigation/types"
 
@@ -17,6 +18,7 @@ type Props = NativeStackScreenProps<TeamsStackParamList, "TeamSchedule">
 
 export function TeamScheduleScreen({ route, navigation }: Props) {
   const { team } = route.params
+  const { settings } = useAppSettings()
 
   return (
     <View style={styles.root}>
@@ -26,6 +28,8 @@ export function TeamScheduleScreen({ route, navigation }: Props) {
         onPressGame={(game) => {
           navigation.navigate("GameDetail", { gameId: game.id })
         }}
+        spoilerFreeMode={settings.spoilerFreeMode}
+        use24HourTime={settings.use24HourTime}
       />
     </View>
   )
