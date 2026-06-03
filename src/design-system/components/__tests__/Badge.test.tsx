@@ -1,10 +1,9 @@
-import React from "react"
 import { render, screen } from "@testing-library/react-native"
 
 import { Badge } from "../Badge"
 
 // Smoke test
-it("renders without crashing", () => {
+test("renders without crashing", () => {
   render(<Badge label="LIVE" color="red" />)
 })
 

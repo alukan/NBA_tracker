@@ -3,24 +3,24 @@
  * Specific to the Schedule tab. Not intended for reuse.
  */
 
-import { useCallback } from "react"
+import  { type NativeStackScreenProps } from "@react-navigation/native-stack"
+import { useCallback, type ReactElement } from "react"
 import { StyleSheet, View } from "react-native"
 
-import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 
-import { Text } from "@ds"
-import { colors, spacing } from "@ds"
+import { Text , colors, spacing } from "@ds"
+
+import { type Game } from "@shared"
 
 import { useAppSettings } from "../../../context/SettingsContext"
 import { useFavoriteTeam } from "../../../hooks/useFavoriteTeam"
-import { ScheduleList } from "../components/ScheduleList"
-import { TeamSelector } from "../../teams/components/TeamSelector"
 import { type ScheduleStackParamList } from "../../../navigation/types"
-import { type Game } from "@shared"
+import { TeamSelector } from "../../teams/components/TeamSelector"
+import { ScheduleList } from "../components/ScheduleList"
 
 type Props = NativeStackScreenProps<ScheduleStackParamList, "ScheduleList">
 
-export function ScheduleScreen({ navigation }: Props) {
+export function ScheduleScreen({ navigation }: Props): ReactElement {
   const { favoriteTeam, setFavoriteTeam, isLoading } = useFavoriteTeam()
   const { settings } = useAppSettings()
 

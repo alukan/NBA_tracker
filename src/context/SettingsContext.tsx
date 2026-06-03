@@ -1,8 +1,8 @@
-import React, { createContext, useContext } from "react"
+import { createContext, useContext, type ReactElement, type ReactNode } from "react"
 
 import { useSettings, type Settings } from "../hooks/useSettings"
 
-interface SettingsContextValue {
+type SettingsContextValue = {
   settings: Settings
   updateSetting: <K extends keyof Settings>(key: K, value: Settings[K]) => void
   isLoading: boolean
@@ -10,7 +10,7 @@ interface SettingsContextValue {
 
 const SettingsContext = createContext<SettingsContextValue | null>(null)
 
-export function SettingsProvider({ children }: { children: React.ReactNode }) {
+export function SettingsProvider({ children }: { children: ReactNode }): ReactElement {
   const value = useSettings()
   return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>
 }

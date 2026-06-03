@@ -1,12 +1,11 @@
-import React from "react"
 import { render, screen, fireEvent } from "@testing-library/react-native"
 
+import { Badge } from "../Badge"
 import { Card } from "../Card"
 import { Text } from "../Text"
-import { Badge } from "../Badge"
 
 // Smoke test
-it("renders without crashing", () => {
+test("renders without crashing", () => {
   render(
     <Card>
       <Text>Content</Text>

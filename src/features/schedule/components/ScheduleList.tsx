@@ -4,6 +4,7 @@
  * but tied to the Game domain model.
  */
 
+import { type ReactElement } from "react"
 import {
   ActivityIndicator,
   RefreshControl,
@@ -12,14 +13,14 @@ import {
   View,
 } from "react-native"
 
-import { Text } from "@ds"
-import { colors, spacing } from "@ds"
+import { Text , colors, spacing } from "@ds"
 import { type Game } from "@shared"
 
 import { useScheduleSections } from "../../../hooks/useScheduleSections"
+
 import { GameCard } from "./GameCard"
 
-interface ScheduleListProps {
+type ScheduleListProps = {
   selectedTeam: string | null
   onPressGame?: (game: Game) => void
   spoilerFreeMode?: boolean
@@ -31,7 +32,7 @@ export function ScheduleList({
   onPressGame,
   spoilerFreeMode = false,
   use24HourTime = false,
-}: ScheduleListProps) {
+}: ScheduleListProps): ReactElement {
   const { sections, isLoading, error, refreshing, onRefresh, onEndReached, isLoadingMore } =
     useScheduleSections(selectedTeam)
 

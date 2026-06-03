@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react"
 
 const STORAGE_KEY = "@settings"
 
-export interface Settings {
+export type Settings = {
   displayName: string
   notificationsEnabled: boolean
   spoilerFreeMode: boolean
@@ -34,10 +34,10 @@ export function useSettings(): {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY)
+    void AsyncStorage.getItem(STORAGE_KEY)
       .then((stored) => {
         if (stored != null) {
-          setSettings({ ...DEFAULT_SETTINGS, ...JSON.parse(stored) })
+          setSettings({ ...DEFAULT_SETTINGS, ...(JSON.parse(stored) as Partial<Settings>) })
         }
       })
       .finally(() => {

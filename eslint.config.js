@@ -5,7 +5,7 @@ import { defineConfig, globalIgnores } from "eslint/config"
 import pluginExpo from "eslint-plugin-expo"
 
 export default defineConfig(
-    globalIgnores(["dist/", "web-build/"]),
+    globalIgnores(["dist/", "web-build/", "metro.config.js"]),
     config,
     {
         plugins: {
@@ -29,6 +29,11 @@ export default defineConfig(
         },
     },
     {
-        // configs overrides, if need
+        files: ["**/__tests__/**", "**/*.test.{ts,tsx}"],
+        rules: {
+            // Testing-library returns loosely typed nodes; unsafe access is expected
+            "@typescript-eslint/no-unsafe-member-access": "off",
+            "@typescript-eslint/no-unsafe-call": "off",
+        },
     },
 )

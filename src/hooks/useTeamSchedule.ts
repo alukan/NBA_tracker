@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
 
 import { type Game } from "@shared"
+
 import { fetchTeamSchedule } from "../services/gamesApi"
 
 /**
@@ -14,7 +15,7 @@ function currentNbaSeason(): number {
 }
 const PAGE_SIZE   = 15     // games revealed per onEndReached
 
-interface Section {
+type Section = {
   title: string  // e.g. "June 2025"
   data: Game[]
 }

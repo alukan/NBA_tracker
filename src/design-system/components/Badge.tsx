@@ -4,17 +4,19 @@
  * Intended for short, uppercase, high-contrast labels like "LIVE", "FINAL", or "UPCOMING".
  */
 
+import { type ReactElement } from "react"
 import { StyleSheet } from "react-native"
 
-import { Text } from "./Text"
 import { fontWeight, letterSpacing, fontSize } from "../tokens"
 
-interface BadgeProps {
+import { Text } from "./Text"
+
+type BadgeProps = {
   label: string
   color: string
 }
 
-export function Badge({ label, color }: BadgeProps) {
+export function Badge({ label, color }: BadgeProps): ReactElement {
   return <Text style={[styles.badge, { color }]}>{label}</Text>
 }
 

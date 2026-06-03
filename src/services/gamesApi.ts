@@ -1,5 +1,28 @@
 import { type Game, type GameStatus, NBA_TEAMS } from "@shared"
 
+/** Minimal shape of an ESPN scoreboard/team-schedule event */
+type EspnCompetitor = {
+  homeAway: "home" | "away"
+  team: { abbreviation: string }
+  score: string | { displayValue?: string }
+}
+
+type EspnStatusType = {
+  name: string
+}
+
+type EspnCompetition = {
+  competitors: EspnCompetitor[]
+  status?: { type?: EspnStatusType }
+}
+
+type EspnEvent = {
+  id: string
+  date: string
+  status?: { type?: EspnStatusType }
+  competitions: EspnCompetition[]
+}
+
 /**
  * ESPN uses non-standard abbreviations for several teams.
  * Map them to the 3-letter codes used everywhere else in the app.
@@ -33,14 +56,10 @@ function mapStatus(name: string): GameStatus {
   return "upcoming"
 }
 
-function parseScore(raw: unknown, status: GameStatus): number | null {
+function parseScore(raw: EspnCompetitor["score"] | undefined, status: GameStatus): number | null {
   if (status === "upcoming") return null
   // Scoreboard returns a plain string; team schedule returns { value, displayValue }
-  const str =
-    typeof raw === "string" ? raw
-    : typeof raw === "object" && raw !== null
-      ? String((raw as { displayValue?: string }).displayValue ?? "")
-      : ""
+  const str = typeof raw === "string" ? raw : (raw?.displayValue ?? "")
   const n = parseInt(str, 10)
   return isNaN(n) ? null : n
 }
@@ -59,27 +78,24 @@ function formatTime(isoDate: string): string {
   })
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mapEvent(event: any): Game {
+function mapEvent(event: EspnEvent): Game {
   const competition = event.competitions[0]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const home = competition.competitors.find((c: any) => c.homeAway === "home")
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const away = competition.competitors.find((c: any) => c.homeAway === "away")
+  const home = competition.competitors.find((c) => c.homeAway === "home")
+  const away = competition.competitors.find((c) => c.homeAway === "away")
   // The scoreboard endpoint puts status at event.status.type.name;
   // the team schedule endpoint puts it at event.competitions[0].status.type.name.
   const statusType = event.status?.type ?? competition?.status?.type
-  const status = mapStatus((statusType?.name ?? "") as string)
+  const status = mapStatus(statusType?.name ?? "")
 
   return {
-    id: event.id as string,
-    homeTeam: normalizeAbbr((home?.team.abbreviation ?? "???") as string),
-    awayTeam: normalizeAbbr((away?.team.abbreviation ?? "???") as string),
-    homeScore: parseScore(home?.score as string | undefined, status),
-    awayScore: parseScore(away?.score as string | undefined, status),
-    date: formatDate(event.date as string),
-    time: formatTime(event.date as string),
-    isoDate: event.date as string,
+    id: event.id,
+    homeTeam: normalizeAbbr(home?.team.abbreviation ?? "???"),
+    awayTeam: normalizeAbbr(away?.team.abbreviation ?? "???"),
+    homeScore: parseScore(home?.score, status),
+    awayScore: parseScore(away?.score, status),
+    date: formatDate(event.date),
+    time: formatTime(event.date),
+    isoDate: event.date,
     status,
   }
 }
@@ -90,9 +106,8 @@ const ESPN_TEAMS =
 async function fetchTeamSchedulePage(url: string): Promise<Game[]> {
   const res = await fetch(url)
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
-  const json = (await res.json()) as { events?: unknown[] }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (json.events ?? []).map((e) => mapEvent(e as any))
+  const json = (await res.json()) as { events?: EspnEvent[] }
+  return (json.events ?? []).map(mapEvent)
 }
 
 /**
@@ -122,9 +137,8 @@ async function fetchDay(date?: Date): Promise<Game[]> {
 
   const res = await fetch(url)
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
-  const json = (await res.json()) as { events?: unknown[] }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (json.events ?? []).map((e) => mapEvent(e as any))
+  const json = (await res.json()) as { events?: EspnEvent[] }
+  return (json.events ?? []).map(mapEvent)
 }
 
 function daysFrom(base: Date, offset: number): Date {

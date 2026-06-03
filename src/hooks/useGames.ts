@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 
 import { type Game } from "@shared"
+
 import { fetchGames } from "../services/gamesApi"
 
 /**

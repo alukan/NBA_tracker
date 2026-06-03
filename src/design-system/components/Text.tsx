@@ -5,6 +5,7 @@
  * and `style` for one-off layout adjustments.
  */
 
+import { type ReactElement } from "react"
 import { Text as RNText, StyleSheet, type TextProps as RNTextProps } from "react-native"
 
 import { colors, fontSize, fontWeight, letterSpacing } from "../tokens"
@@ -18,12 +19,12 @@ export type TextVariant =
   | "caption"   // Small supplemental label
   | "label"     // All-caps section header with letter spacing
 
-interface TextProps extends RNTextProps {
+type TextProps = {
   variant?: TextVariant
   color?: string
-}
+} & RNTextProps
 
-export function Text({ variant = "body", color, style, ...props }: TextProps) {
+export function Text({ variant = "body", color, style, ...props }: TextProps): ReactElement {
   return (
     <RNText
       style={[variantStyles[variant], color != null ? { color } : undefined, style]}

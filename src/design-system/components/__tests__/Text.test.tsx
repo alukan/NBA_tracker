@@ -1,10 +1,9 @@
-import React from "react"
 import { render, screen } from "@testing-library/react-native"
 
 import { Text } from "../Text"
 
 // Smoke test
-it("renders without crashing", () => {
+test("renders without crashing", () => {
   render(<Text>Hello</Text>)
 })
 

@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { type ReactElement } from "react"
 import { Text } from "react-native"
 
 import { colors, fontSize } from "@ds"
@@ -10,7 +11,7 @@ import { type MainTabsParamList } from "./types"
 
 const Tab = createBottomTabNavigator<MainTabsParamList>()
 
-export default function MainTabs() {
+export default function MainTabs(): ReactElement {
   return (
     <Tab.Navigator
       screenOptions={{

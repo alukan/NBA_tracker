@@ -1,17 +1,16 @@
-import React from "react"
 import { render, screen, fireEvent } from "@testing-library/react-native"
 
 import { Chip } from "../Chip"
 
 // Smoke test
-it("renders without crashing", () => {
-  render(<Chip label="NBA" onPress={() => {}} />)
+test("renders without crashing", () => {
+  render(<Chip label="NBA" onPress={jest.fn()} />)
 })
 
 // Unit tests — includes mock function and user action
 describe("Chip", () => {
   it("displays the label text", () => {
-    render(<Chip label="BOS" onPress={() => {}} />)
+    render(<Chip label="BOS" onPress={jest.fn()} />)
     expect(screen.getByText("BOS")).toBeTruthy()
   })
 
@@ -32,12 +31,12 @@ describe("Chip", () => {
   })
 
   it("renders in unselected state by default", () => {
-    render(<Chip label="MIA" onPress={() => {}} />)
+    render(<Chip label="MIA" onPress={jest.fn()} />)
     expect(screen.getByText("MIA")).toBeTruthy()
   })
 
   it("renders in selected state when selected=true", () => {
-    render(<Chip label="MIA" selected onPress={() => {}} />)
+    render(<Chip label="MIA" selected onPress={jest.fn()} />)
     expect(screen.getByText("MIA")).toBeTruthy()
   })
 })

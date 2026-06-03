@@ -13,7 +13,7 @@ import { useCallback } from "react"
  *
  * Falls back silently on devices that do not support haptics.
  */
-export function useHaptics() {
+export function useHaptics(): { teamSelected: () => void; teamCleared: () => void } {
   const teamSelected = useCallback(() => {
     void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
   }, [])

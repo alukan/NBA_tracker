@@ -3,20 +3,21 @@
  * Specific to the Teams tab entry point. Not intended for reuse.
  */
 
+import  { type NativeStackScreenProps } from "@react-navigation/native-stack"
+import { type ReactElement } from "react"
 import { StyleSheet, View } from "react-native"
 
-import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 
 import { colors } from "@ds"
 import { type TeamInfo } from "@shared"
 
-import { TeamList } from "../components/TeamList"
 import { type TeamsStackParamList } from "../../../navigation/types"
+import { TeamList } from "../components/TeamList"
 
 type Props = NativeStackScreenProps<TeamsStackParamList, "TeamsList">
 
-export function TeamsScreen({ navigation }: Props) {
-  function handleSelect(team: TeamInfo) {
+export function TeamsScreen({ navigation }: Props): ReactElement {
+  function handleSelect(team: TeamInfo): void {
     navigation.navigate("TeamSchedule", { team: team.abbr })
   }
 

@@ -4,7 +4,7 @@ import { type Game } from "@shared"
 
 import { useGames } from "./useGames"
 
-interface Section {
+type Section = {
   title: string
   data: Game[]
 }

@@ -1,15 +1,17 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { type ReactElement } from "react"
 
 import { colors } from "@shared"
 
 import { SettingsScreen } from "../features/settings/screens/SettingsScreen"
+
 import { type SettingsStackParamList } from "./types"
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>()
 
 const headerStyle = { backgroundColor: colors.header } as const
 
-export default function SettingsStack() {
+export default function SettingsStack(): ReactElement {
   return (
     <Stack.Navigator
       screenOptions={{

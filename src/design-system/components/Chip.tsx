@@ -4,18 +4,20 @@
  * Handles both selected and unselected visual states internally.
  */
 
+import { type ReactElement } from "react"
 import { StyleSheet, TouchableOpacity } from "react-native"
 
-import { Text } from "./Text"
 import { colors, fontWeight, fontSize, radius, spacing } from "../tokens"
 
-interface ChipProps {
+import { Text } from "./Text"
+
+type ChipProps = {
   label: string
   selected?: boolean
   onPress: () => void
 }
 
-export function Chip({ label, selected = false, onPress }: ChipProps) {
+export function Chip({ label, selected = false, onPress }: ChipProps): ReactElement {
   return (
     <TouchableOpacity
       style={[styles.chip, selected && styles.chipSelected]}

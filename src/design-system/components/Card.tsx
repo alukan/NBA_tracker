@@ -4,17 +4,18 @@
  * Renders a TouchableOpacity when `onPress` is provided, otherwise a plain View.
  */
 
+import { type ReactElement, type ReactNode } from "react"
 import { StyleSheet, TouchableOpacity, View, type ViewStyle } from "react-native"
 
 import { colors, radius, spacing } from "../tokens"
 
-interface CardProps {
-  children: React.ReactNode
+type CardProps = {
+  children: ReactNode
   onPress?: () => void
   style?: ViewStyle
 }
 
-export function Card({ children, onPress, style }: CardProps) {
+export function Card({ children, onPress, style }: CardProps): ReactElement {
   if (onPress != null) {
     return (
       <TouchableOpacity

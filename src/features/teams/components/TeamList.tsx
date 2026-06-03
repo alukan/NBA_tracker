@@ -3,18 +3,17 @@
  * Reusable anywhere a full team list with logos is needed.
  */
 
+import { useState, type ReactElement } from "react"
 import { Image, FlatList, StyleSheet, TouchableOpacity, View } from "react-native"
-import { useState } from "react"
 
-import { Text } from "@ds"
-import { colors, spacing, radius } from "@ds"
+import { Text , colors, spacing, radius } from "@ds"
 import { NBA_TEAMS, teamLogoUrl, type TeamInfo } from "@shared"
 
-interface TeamListProps {
+type TeamListProps = {
   onSelect: (team: TeamInfo) => void
 }
 
-function TeamLogo({ abbr }: { abbr: string }) {
+function TeamLogo({ abbr }: { abbr: string }): ReactElement {
   const [failed, setFailed] = useState(false)
   if (failed) {
     return (
@@ -33,7 +32,7 @@ function TeamLogo({ abbr }: { abbr: string }) {
   )
 }
 
-function TeamRow({ team, onSelect }: { team: TeamInfo; onSelect: (t: TeamInfo) => void }) {
+function TeamRow({ team, onSelect }: { team: TeamInfo; onSelect: (t: TeamInfo) => void }): ReactElement {
   return (
     <TouchableOpacity style={styles.row} onPress={() => { onSelect(team) }} activeOpacity={0.7}>
       <TeamLogo abbr={team.abbr} />
@@ -46,7 +45,7 @@ function TeamRow({ team, onSelect }: { team: TeamInfo; onSelect: (t: TeamInfo) =
   )
 }
 
-export function TeamList({ onSelect }: TeamListProps) {
+export function TeamList({ onSelect }: TeamListProps): ReactElement {
   return (
     <FlatList
       data={NBA_TEAMS}

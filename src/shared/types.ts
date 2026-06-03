@@ -1,6 +1,6 @@
 export type GameStatus = "upcoming" | "live" | "final"
 
-export interface Game {
+export type Game = {
   id: string
   homeTeam: string
   awayTeam: string
@@ -12,7 +12,7 @@ export interface Game {
   status: GameStatus
 }
 
-export interface TeamInfo {
+export type TeamInfo = {
   abbr: string    // normalized 3-letter code, e.g. "NYK"
   city: string    // e.g. "New York"
   name: string    // e.g. "Knicks"

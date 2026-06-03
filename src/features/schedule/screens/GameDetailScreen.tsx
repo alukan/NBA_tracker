@@ -4,12 +4,12 @@
  * Styling is handled primarily by design system components (Card, Text, Badge).
  */
 
+import { useRoute, type RouteProp } from "@react-navigation/native"
+import { type ReactElement } from "react"
 import { StyleSheet, View } from "react-native"
 
-import { useRoute, type RouteProp } from "@react-navigation/native"
 
-import { Badge, Card, Text } from "@ds"
-import { colors, fontSize, spacing } from "@ds"
+import { Badge, Card, Text , colors, fontSize, spacing } from "@ds"
 
 import { type ScheduleStackParamList } from "../../../navigation/types"
 
@@ -21,7 +21,7 @@ const STATUS_COLOR: Record<string, string> = {
   upcoming: colors.accent,
 }
 
-export function GameDetailScreen() {
+export function GameDetailScreen(): ReactElement {
   const route = useRoute<GameDetailRoute>()
   const { game } = route.params
 

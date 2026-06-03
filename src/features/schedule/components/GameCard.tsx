@@ -4,14 +4,13 @@
  * but not suitable outside the NBA schedule context.
  */
 
-import { useState } from "react"
+import { useState, type ReactElement } from "react"
 import { Image, StyleSheet, View } from "react-native"
 
-import { Badge, Card, Text } from "@ds"
-import { colors, spacing, radius } from "@ds"
+import { Badge, Card, Text , colors, spacing, radius } from "@ds"
 import { type Game, type GameStatus, formatGameTime, teamLogoUrl } from "@shared"
 
-interface GameCardProps {
+type GameCardProps = {
   game: Game
   onPress?: (game: Game) => void
   spoilerFreeMode?: boolean
@@ -25,7 +24,7 @@ const STATUS_LABEL: Record<GameStatus, string> = {
   final: "Final",
 }
 
-function TeamLogo({ abbr }: { abbr: string }) {
+function TeamLogo({ abbr }: { abbr: string }): ReactElement {
   const [failed, setFailed] = useState(false)
   if (failed) return <View style={styles.logoFallback} />
   return (
@@ -38,7 +37,7 @@ function TeamLogo({ abbr }: { abbr: string }) {
   )
 }
 
-function WLBadge({ result }: { result: "W" | "L" }) {
+function WLBadge({ result }: { result: "W" | "L" }): ReactElement {
   return (
     <View style={[styles.wlBadge, result === "W" ? styles.win : styles.loss]}>
       <Text style={[styles.wlText, { color: colors.text }]}>{result}</Text>
@@ -46,16 +45,16 @@ function WLBadge({ result }: { result: "W" | "L" }) {
   )
 }
 
-export function GameCard({ game, onPress, spoilerFreeMode = false, use24HourTime = false, highlightTeam }: GameCardProps) {
+export function GameCard({ game, onPress, spoilerFreeMode = false, use24HourTime = false, highlightTeam }: GameCardProps): ReactElement {
   const isLive = game.status === "live"
   const hasScores = game.homeScore !== null && game.awayScore !== null
   const scoresHidden = spoilerFreeMode && hasScores
 
   let result: "W" | "L" | null = null
-  if (highlightTeam && game.status === "final" && hasScores) {
+  if (highlightTeam && game.status === "final" && game.homeScore !== null && game.awayScore !== null) {
     const isHome = game.homeTeam === highlightTeam
-    const myScore = isHome ? game.homeScore! : game.awayScore!
-    const theirScore = isHome ? game.awayScore! : game.homeScore!
+    const myScore = isHome ? game.homeScore : game.awayScore
+    const theirScore = isHome ? game.awayScore : game.homeScore
     result = myScore > theirScore ? "W" : "L"
   }
 

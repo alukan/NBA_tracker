@@ -3,14 +3,14 @@
  * Specific to the Settings tab. Not intended for reuse.
  */
 
+import { type ReactElement } from "react"
 import { ScrollView, StyleSheet, Switch, TextInput, View } from "react-native"
 
-import { Text } from "@ds"
-import { colors, fontSize, spacing } from "@ds"
+import { Text , colors, fontSize, spacing } from "@ds"
 
 import { useAppSettings } from "../../../context/SettingsContext"
 
-export function SettingsScreen() {
+export function SettingsScreen(): ReactElement {
   const { settings, updateSetting } = useAppSettings()
 
   return (

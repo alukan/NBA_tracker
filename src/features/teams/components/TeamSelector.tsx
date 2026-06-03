@@ -4,19 +4,18 @@
  * but tied to the hardcoded NBA team list.
  */
 
-import { useRef } from "react"
+import { useRef, type ReactElement } from "react"
 import { ScrollView, StyleSheet, View } from "react-native"
 
-import { Chip, Text } from "@ds"
-import { colors, spacing } from "@ds"
+import { Chip, Text , colors, spacing } from "@ds"
 import { NBA_TEAMS } from "@shared"
 
-interface TeamSelectorProps {
+type TeamSelectorProps = {
   selected: string | null
   onSelect: (team: string) => void
 }
 
-export function TeamSelector({ selected, onSelect }: TeamSelectorProps) {
+export function TeamSelector({ selected, onSelect }: TeamSelectorProps): ReactElement {
   const scrollRef = useRef<ScrollView>(null)
 
   return (

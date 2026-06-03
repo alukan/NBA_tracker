@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useCallback, useEffect, useState } from "react"
+
 import { useHaptics } from "./useHaptics"
 
 const STORAGE_KEY = "@favorite_team"
@@ -26,7 +27,7 @@ export function useFavoriteTeam(): {
   const haptics = useHaptics()
 
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY)
+    void AsyncStorage.getItem(STORAGE_KEY)
       .then((saved) => {
         if (saved != null) setFavoriteTeamState(saved)
       })
