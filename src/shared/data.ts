@@ -1,5 +1,48 @@
 import { type Game } from "./types"
 
+export const MOCK_GAMES_PAGE_2: Game[] = [
+  {
+    id: "7",
+    awayTeam: "PHX",
+    homeTeam: "SAC",
+    date: "May 24",
+    time: "9:30 PM",
+    homeScore: null,
+    awayScore: null,
+    status: "upcoming",
+  },
+  {
+    id: "8",
+    awayTeam: "DAL",
+    homeTeam: "MIN",
+    date: "May 24",
+    time: "8:00 PM",
+    homeScore: null,
+    awayScore: null,
+    status: "upcoming",
+  },
+  {
+    id: "9",
+    awayTeam: "CLE",
+    homeTeam: "ORL",
+    date: "May 25",
+    time: "7:00 PM",
+    homeScore: null,
+    awayScore: null,
+    status: "upcoming",
+  },
+  {
+    id: "10",
+    awayTeam: "CHI",
+    homeTeam: "TOR",
+    date: "May 25",
+    time: "7:30 PM",
+    homeScore: null,
+    awayScore: null,
+    status: "upcoming",
+  },
+]
+
 export const MOCK_GAMES: Game[] = [
   {
     id: "1",
