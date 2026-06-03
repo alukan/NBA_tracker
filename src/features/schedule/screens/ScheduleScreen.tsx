@@ -10,13 +10,13 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 
 import { Text } from "@ds"
 import { colors, spacing } from "@ds"
-import { MOCK_GAMES } from "@shared"
 
 import { useAppSettings } from "../../../context/SettingsContext"
 import { useFavoriteTeam } from "../../../hooks/useFavoriteTeam"
 import { ScheduleList } from "../components/ScheduleList"
 import { TeamSelector } from "../../teams/components/TeamSelector"
 import { type ScheduleStackParamList } from "../../../navigation/types"
+import { type Game } from "@shared"
 
 type Props = NativeStackScreenProps<ScheduleStackParamList, "ScheduleList">
 
@@ -31,6 +31,13 @@ export function ScheduleScreen({ navigation }: Props) {
     [favoriteTeam, setFavoriteTeam],
   )
 
+  const handlePressGame = useCallback(
+    (game: Game) => {
+      navigation.navigate("GameDetail", { game })
+    },
+    [navigation],
+  )
+
   return (
     <View style={styles.root}>
       {settings.displayName ? (
@@ -40,11 +47,8 @@ export function ScheduleScreen({ navigation }: Props) {
       ) : null}
       <TeamSelector selected={isLoading ? null : favoriteTeam} onSelect={handleSelectTeam} />
       <ScheduleList
-        games={MOCK_GAMES}
         selectedTeam={isLoading ? null : favoriteTeam}
-        onPressGame={(game) => {
-          navigation.navigate("GameDetail", { gameId: game.id })
-        }}
+        onPressGame={handlePressGame}
         spoilerFreeMode={settings.spoilerFreeMode}
         use24HourTime={settings.use24HourTime}
       />

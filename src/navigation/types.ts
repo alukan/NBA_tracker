@@ -1,14 +1,16 @@
 import type { NavigatorScreenParams } from "@react-navigation/native"
 
+import type { Game } from "@shared"
+
 export type ScheduleStackParamList = {
   ScheduleList: undefined
-  GameDetail: { gameId: string }
+  GameDetail: { game: Game }
 }
 
 export type TeamsStackParamList = {
   TeamsList: undefined
   TeamSchedule: { team: string }
-  GameDetail: { gameId: string }
+  GameDetail: { game: Game }
 }
 
 export type SettingsStackParamList = {

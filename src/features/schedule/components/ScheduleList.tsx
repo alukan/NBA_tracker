@@ -4,7 +4,13 @@
  * but tied to the Game domain model.
  */
 
-import { ActivityIndicator, RefreshControl, SectionList, StyleSheet, View } from "react-native"
+import {
+  ActivityIndicator,
+  RefreshControl,
+  SectionList,
+  StyleSheet,
+  View,
+} from "react-native"
 
 import { Text } from "@ds"
 import { colors, spacing } from "@ds"
@@ -14,15 +20,36 @@ import { useScheduleSections } from "../../../hooks/useScheduleSections"
 import { GameCard } from "./GameCard"
 
 interface ScheduleListProps {
-  games: Game[]
   selectedTeam: string | null
   onPressGame?: (game: Game) => void
   spoilerFreeMode?: boolean
   use24HourTime?: boolean
 }
 
-export function ScheduleList({ games, selectedTeam, onPressGame, spoilerFreeMode = false, use24HourTime = false }: ScheduleListProps) {
-  const { sections, refreshing, onRefresh, onEndReached, isLoadingMore } = useScheduleSections(games, selectedTeam)
+export function ScheduleList({
+  selectedTeam,
+  onPressGame,
+  spoilerFreeMode = false,
+  use24HourTime = false,
+}: ScheduleListProps) {
+  const { sections, isLoading, error, refreshing, onRefresh, onEndReached, isLoadingMore } =
+    useScheduleSections(selectedTeam)
+
+  if (isLoading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator color={colors.accent} />
+      </View>
+    )
+  }
+
+  if (error != null) {
+    return (
+      <View style={styles.center}>
+        <Text variant="dim">{error}</Text>
+      </View>
+    )
+  }
 
   return (
     <SectionList
@@ -68,6 +95,11 @@ export function ScheduleList({ games, selectedTeam, onPressGame, spoilerFreeMode
 }
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   content: {
     paddingBottom: spacing.xxxl,
   },

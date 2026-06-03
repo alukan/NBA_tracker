@@ -10,9 +10,10 @@ import { useRoute, type RouteProp } from "@react-navigation/native"
 
 import { Badge, Card, Text } from "@ds"
 import { colors, fontSize, spacing } from "@ds"
-import { MOCK_GAMES } from "@shared"
 
-type GameDetailRoute = RouteProp<{ GameDetail: { gameId: string } }, "GameDetail">
+import { type ScheduleStackParamList } from "../../../navigation/types"
+
+type GameDetailRoute = RouteProp<ScheduleStackParamList, "GameDetail">
 
 const STATUS_COLOR: Record<string, string> = {
   live: colors.live,
@@ -22,17 +23,7 @@ const STATUS_COLOR: Record<string, string> = {
 
 export function GameDetailScreen() {
   const route = useRoute<GameDetailRoute>()
-  const game = MOCK_GAMES.find((g) => g.id === route.params.gameId)
-
-  if (!game) {
-    return (
-      <View style={styles.root}>
-        <Text variant="body" color={colors.textMuted} style={styles.notFound}>
-          Game not found.
-        </Text>
-      </View>
-    )
-  }
+  const { game } = route.params
 
   const statusColor = STATUS_COLOR[game.status] ?? colors.textMuted
   const hasScores = game.homeScore !== null && game.awayScore !== null
@@ -126,9 +117,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing.md,
     alignItems: "center",
-  },
-  notFound: {
-    textAlign: "center",
-    marginTop: 40,
   },
 })

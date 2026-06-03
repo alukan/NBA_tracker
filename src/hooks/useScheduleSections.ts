@@ -1,6 +1,8 @@
-import { useCallback, useMemo, useState } from "react"
+import { useMemo } from "react"
 
-import { type Game, MOCK_GAMES_PAGE_2 } from "@shared"
+import { type Game } from "@shared"
+
+import { useGames } from "./useGames"
 
 interface Section {
   title: string
@@ -8,32 +10,27 @@ interface Section {
 }
 
 /**
- * Manages SectionList data for the schedule feature.
+ * Combines live game data with section grouping for the schedule SectionList.
  *
- * Takes the base game list and active team filter, and returns:
- *   - sections: games grouped by date, filtered by team
- *   - pull-to-refresh: resets extra pages back to the base list
- *   - onEndReached: appends the next page of games when the user scrolls to the bottom
- *
- * Owns all loading state so ScheduleList stays a pure rendering component.
+ * Delegates all fetching, refresh, and load-more state to useGames.
+ * Responsible only for filtering by team and grouping results by date.
  */
-export function useScheduleSections(baseGames: Game[], selectedTeam: string | null): {
+export function useScheduleSections(selectedTeam: string | null): {
   sections: Section[]
+  isLoading: boolean
+  error: string | null
   refreshing: boolean
   onRefresh: () => void
-  onEndReached: () => void
   isLoadingMore: boolean
+  onEndReached: () => void
 } {
-  const [extraGames, setExtraGames] = useState<Game[]>([])
-  const [refreshing, setRefreshing] = useState(false)
-  const [hasMore, setHasMore] = useState(true)
-  const [isLoadingMore, setIsLoadingMore] = useState(false)
+  const { games, isLoading, error, refreshing, refresh, isLoadingMore, loadMore } =
+    useGames()
 
   const sections = useMemo<Section[]>(() => {
-    const all = [...baseGames, ...extraGames]
     const filtered = selectedTeam
-      ? all.filter((g) => g.homeTeam === selectedTeam || g.awayTeam === selectedTeam)
-      : all
+      ? games.filter((g) => g.homeTeam === selectedTeam || g.awayTeam === selectedTeam)
+      : games
 
     const byDate = new Map<string, Game[]>()
     for (const game of filtered) {
@@ -43,26 +40,15 @@ export function useScheduleSections(baseGames: Game[], selectedTeam: string | nu
     }
 
     return Array.from(byDate.entries()).map(([title, data]) => ({ title, data }))
-  }, [baseGames, extraGames, selectedTeam])
+  }, [games, selectedTeam])
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true)
-    setTimeout(() => {
-      setExtraGames([])
-      setHasMore(true)
-      setRefreshing(false)
-    }, 1000)
-  }, [])
-
-  const onEndReached = useCallback(() => {
-    if (!hasMore || isLoadingMore || extraGames.length > 0) return
-    setIsLoadingMore(true)
-    setTimeout(() => {
-      setExtraGames(MOCK_GAMES_PAGE_2)
-      setHasMore(false)
-      setIsLoadingMore(false)
-    }, 800)
-  }, [hasMore, isLoadingMore, extraGames.length])
-
-  return { sections, refreshing, onRefresh, onEndReached, isLoadingMore }
+  return {
+    sections,
+    isLoading,
+    error,
+    refreshing,
+    onRefresh: refresh,
+    isLoadingMore,
+    onEndReached: loadMore,
+  }
 }
