@@ -1,4 +1,4 @@
-import { type Game, type GameStatus } from "@shared"
+import { type Game, type GameStatus, NBA_TEAMS } from "@shared"
 
 /**
  * ESPN uses non-standard abbreviations for several teams.
@@ -33,9 +33,15 @@ function mapStatus(name: string): GameStatus {
   return "upcoming"
 }
 
-function parseScore(raw: string | undefined, status: GameStatus): number | null {
+function parseScore(raw: unknown, status: GameStatus): number | null {
   if (status === "upcoming") return null
-  const n = parseInt(raw ?? "", 10)
+  // Scoreboard returns a plain string; team schedule returns { value, displayValue }
+  const str =
+    typeof raw === "string" ? raw
+    : typeof raw === "object" && raw !== null
+      ? String((raw as { displayValue?: string }).displayValue ?? "")
+      : ""
+  const n = parseInt(str, 10)
   return isNaN(n) ? null : n
 }
 
@@ -60,7 +66,10 @@ function mapEvent(event: any): Game {
   const home = competition.competitors.find((c: any) => c.homeAway === "home")
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const away = competition.competitors.find((c: any) => c.homeAway === "away")
-  const status = mapStatus(event.status.type.name as string)
+  // The scoreboard endpoint puts status at event.status.type.name;
+  // the team schedule endpoint puts it at event.competitions[0].status.type.name.
+  const statusType = event.status?.type ?? competition?.status?.type
+  const status = mapStatus((statusType?.name ?? "") as string)
 
   return {
     id: event.id as string,
@@ -70,8 +79,40 @@ function mapEvent(event: any): Game {
     awayScore: parseScore(away?.score as string | undefined, status),
     date: formatDate(event.date as string),
     time: formatTime(event.date as string),
+    isoDate: event.date as string,
     status,
   }
+}
+
+const ESPN_TEAMS =
+  "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams"
+
+async function fetchTeamSchedulePage(url: string): Promise<Game[]> {
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const json = (await res.json()) as { events?: unknown[] }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (json.events ?? []).map((e) => mapEvent(e as any))
+}
+
+/**
+ * Fetches all games for a team in a given season (regular season + playoffs).
+ * `season` is the ending year (e.g. 2025 for the 2024-25 season).
+ * Returns games sorted most-recent first.
+ */
+export async function fetchTeamSchedule(abbr: string, season: number): Promise<Game[]> {
+  const team = NBA_TEAMS.find((t) => t.abbr === abbr)
+  if (!team) throw new Error(`Unknown team: ${abbr}`)
+
+  const base = `${ESPN_TEAMS}/${team.espnId}/schedule?season=${season}`
+  const [regular, postseason] = await Promise.all([
+    fetchTeamSchedulePage(`${base}&seasontype=2`),
+    fetchTeamSchedulePage(`${base}&seasontype=3`),
+  ])
+
+  const all = [...regular, ...postseason]
+  all.sort((a, b) => new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime())
+  return all
 }
 
 async function fetchDay(date?: Date): Promise<Game[]> {

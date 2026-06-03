@@ -1,4 +1,4 @@
 export { colors } from "./theme"
-export type { Game, GameStatus } from "./types"
-export { MOCK_GAMES } from "./data"
-export { formatGameTime } from "./utils"
+export type { Game, GameStatus, TeamInfo } from "./types"
+export { NBA_TEAMS } from "./data"
+export { formatGameTime, teamLogoUrl } from "./utils"

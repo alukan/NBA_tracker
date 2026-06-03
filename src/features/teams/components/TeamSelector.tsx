@@ -9,13 +9,7 @@ import { ScrollView, StyleSheet, View } from "react-native"
 
 import { Chip, Text } from "@ds"
 import { colors, spacing } from "@ds"
-
-const NBA_TEAMS = [
-  "ATL", "BOS", "BKN", "CHA", "CHI", "CLE", "DAL", "DEN",
-  "DET", "GSW", "HOU", "IND", "LAC", "LAL", "MEM", "MIA",
-  "MIL", "MIN", "NOP", "NYK", "OKC", "ORL", "PHI", "PHX",
-  "POR", "SAC", "SAS", "TOR", "UTA", "WAS",
-]
+import { NBA_TEAMS } from "@shared"
 
 interface TeamSelectorProps {
   selected: string | null
@@ -34,12 +28,12 @@ export function TeamSelector({ selected, onSelect }: TeamSelectorProps) {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scroll}
       >
-        {NBA_TEAMS.map((team) => (
+        {NBA_TEAMS.map(({ abbr }) => (
           <Chip
-            key={team}
-            label={team}
-            selected={selected === team}
-            onPress={() => { onSelect(team) }}
+            key={abbr}
+            label={abbr}
+            selected={selected === abbr}
+            onPress={() => { onSelect(abbr) }}
           />
         ))}
       </ScrollView>

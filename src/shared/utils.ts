@@ -1,3 +1,17 @@
+// ESPN's logo CDN uses non-standard paths for a handful of teams.
+const ESPN_LOGO_ABBR: Record<string, string> = {
+  UTA: "utah",
+  NOP: "no",
+}
+
+/**
+ * Returns the ESPN CDN URL for a team's logo given its normalized abbreviation.
+ */
+export function teamLogoUrl(abbr: string): string {
+  const cdnAbbr = ESPN_LOGO_ABBR[abbr] ?? abbr.toLowerCase()
+  return `https://a.espncdn.com/i/teamlogos/nba/500/${cdnAbbr}.png`
+}
+
 /**
  * Converts a 12-hour time string (e.g. "7:30 PM") to 24-hour format ("19:30").
  * Returns the original string unchanged if it cannot be parsed or use24Hour is false.
