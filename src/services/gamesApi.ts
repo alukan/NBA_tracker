@@ -56,7 +56,10 @@ function mapStatus(name: string): GameStatus {
   return "upcoming"
 }
 
-function parseScore(raw: EspnCompetitor["score"] | undefined, status: GameStatus): number | null {
+function parseScore(
+  raw: EspnCompetitor["score"] | undefined,
+  status: GameStatus,
+): number | null {
   if (status === "upcoming") return null
   // Scoreboard returns a plain string; team schedule returns { value, displayValue }
   const str = typeof raw === "string" ? raw : (raw?.displayValue ?? "")
@@ -115,7 +118,10 @@ async function fetchTeamSchedulePage(url: string): Promise<Game[]> {
  * `season` is the ending year (e.g. 2025 for the 2024-25 season).
  * Returns games sorted most-recent first.
  */
-export async function fetchTeamSchedule(abbr: string, season: number): Promise<Game[]> {
+export async function fetchTeamSchedule(
+  abbr: string,
+  season: number,
+): Promise<Game[]> {
   const team = NBA_TEAMS.find((t) => t.abbr === abbr)
   if (!team) throw new Error(`Unknown team: ${abbr}`)
 
@@ -126,7 +132,9 @@ export async function fetchTeamSchedule(abbr: string, season: number): Promise<G
   ])
 
   const all = [...regular, ...postseason]
-  all.sort((a, b) => new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime())
+  all.sort(
+    (a, b) => new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime(),
+  )
   return all
 }
 

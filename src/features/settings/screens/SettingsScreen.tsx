@@ -6,7 +6,7 @@
 import { type ReactElement } from "react"
 import { ScrollView, StyleSheet, Switch, TextInput, View } from "react-native"
 
-import { Text , colors, fontSize, spacing } from "@ds"
+import { Text, colors, fontSize, spacing } from "@ds"
 
 import { useAppSettings } from "../../../context/SettingsContext"
 
@@ -15,7 +15,9 @@ export function SettingsScreen(): ReactElement {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text variant="label" style={styles.sectionLabel}>Profile</Text>
+      <Text variant="label" style={styles.sectionLabel}>
+        Profile
+      </Text>
 
       <View style={styles.fieldGroup}>
         <View style={styles.field}>
@@ -23,7 +25,9 @@ export function SettingsScreen(): ReactElement {
           <TextInput
             style={styles.input}
             value={settings.displayName}
-            onChangeText={(text) => { updateSetting("displayName", text) }}
+            onChangeText={(text) => {
+              updateSetting("displayName", text)
+            }}
             placeholder="Your name"
             placeholderTextColor={colors.textFaint}
             returnKeyType="done"
@@ -31,14 +35,18 @@ export function SettingsScreen(): ReactElement {
         </View>
       </View>
 
-      <Text variant="label" style={styles.sectionLabel}>Preferences</Text>
+      <Text variant="label" style={styles.sectionLabel}>
+        Preferences
+      </Text>
 
       <View style={styles.fieldGroup}>
         <View style={styles.row}>
           <Text variant="body">Enable Notifications</Text>
           <Switch
             value={settings.notificationsEnabled}
-            onValueChange={(val) => { updateSetting("notificationsEnabled", val) }}
+            onValueChange={(val) => {
+              updateSetting("notificationsEnabled", val)
+            }}
             trackColor={{ false: colors.border, true: colors.accent }}
             thumbColor={colors.text}
           />
@@ -50,7 +58,9 @@ export function SettingsScreen(): ReactElement {
           </View>
           <Switch
             value={settings.spoilerFreeMode}
-            onValueChange={(val) => { updateSetting("spoilerFreeMode", val) }}
+            onValueChange={(val) => {
+              updateSetting("spoilerFreeMode", val)
+            }}
             trackColor={{ false: colors.border, true: colors.accent }}
             thumbColor={colors.text}
           />
@@ -59,7 +69,9 @@ export function SettingsScreen(): ReactElement {
           <Text variant="body">24-Hour Time</Text>
           <Switch
             value={settings.use24HourTime}
-            onValueChange={(val) => { updateSetting("use24HourTime", val) }}
+            onValueChange={(val) => {
+              updateSetting("use24HourTime", val)
+            }}
             trackColor={{ false: colors.border, true: colors.accent }}
             thumbColor={colors.text}
           />

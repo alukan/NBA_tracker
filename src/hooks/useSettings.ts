@@ -37,7 +37,10 @@ export function useSettings(): {
     void AsyncStorage.getItem(STORAGE_KEY)
       .then((stored) => {
         if (stored != null) {
-          setSettings({ ...DEFAULT_SETTINGS, ...(JSON.parse(stored) as Partial<Settings>) })
+          setSettings({
+            ...DEFAULT_SETTINGS,
+            ...(JSON.parse(stored) as Partial<Settings>),
+          })
         }
       })
       .finally(() => {

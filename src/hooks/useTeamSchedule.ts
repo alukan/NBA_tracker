@@ -13,10 +13,10 @@ function currentNbaSeason(): number {
   const now = new Date()
   return now.getMonth() >= 9 ? now.getFullYear() + 1 : now.getFullYear()
 }
-const PAGE_SIZE   = 15     // games revealed per onEndReached
+const PAGE_SIZE = 15 // games revealed per onEndReached
 
 type Section = {
-  title: string  // e.g. "June 2025"
+  title: string // e.g. "June 2025"
   data: Game[]
 }
 
@@ -53,11 +53,15 @@ export function useTeamSchedule(team: string): {
     setError(null)
     setPage(1)
     fetchTeamSchedule(team, currentNbaSeason())
-      .then((games) => { setAllGames(games) })
+      .then((games) => {
+        setAllGames(games)
+      })
       .catch((e: unknown) => {
         setError(e instanceof Error ? e.message : "Failed to load schedule")
       })
-      .finally(() => { setIsLoading(false) })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [team])
 
   const visibleGames = useMemo(
@@ -75,12 +79,22 @@ export function useTeamSchedule(team: string): {
       bucket.push(game)
       byMonth.set(label, bucket)
     }
-    return Array.from(byMonth.entries()).map(([title, data]) => ({ title, data }))
+    return Array.from(byMonth.entries()).map(([title, data]) => ({
+      title,
+      data,
+    }))
   }, [visibleGames])
 
   const onEndReached = useCallback(() => {
     if (hasMore) setPage((p) => p + 1)
   }, [hasMore])
 
-  return { sections, isLoading, error, hasMore, onEndReached, isLoadingMore: false }
+  return {
+    sections,
+    isLoading,
+    error,
+    hasMore,
+    onEndReached,
+    isLoadingMore: false,
+  }
 }

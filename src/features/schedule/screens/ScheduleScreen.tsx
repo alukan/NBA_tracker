@@ -3,12 +3,11 @@
  * Specific to the Schedule tab. Not intended for reuse.
  */
 
-import  { type NativeStackScreenProps } from "@react-navigation/native-stack"
+import { type NativeStackScreenProps } from "@react-navigation/native-stack"
 import { useCallback, type ReactElement } from "react"
 import { StyleSheet, View } from "react-native"
 
-
-import { Text , colors, spacing } from "@ds"
+import { Text, colors, spacing } from "@ds"
 
 import { type Game } from "@shared"
 
@@ -45,7 +44,10 @@ export function ScheduleScreen({ navigation }: Props): ReactElement {
           <Text variant="dim">Hi, {settings.displayName}</Text>
         </View>
       ) : null}
-      <TeamSelector selected={isLoading ? null : favoriteTeam} onSelect={handleSelectTeam} />
+      <TeamSelector
+        selected={isLoading ? null : favoriteTeam}
+        onSelect={handleSelectTeam}
+      />
       <ScheduleList
         selectedTeam={isLoading ? null : favoriteTeam}
         onPressGame={handlePressGame}

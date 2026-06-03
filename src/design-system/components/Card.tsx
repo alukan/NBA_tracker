@@ -5,7 +5,12 @@
  */
 
 import { type ReactElement, type ReactNode } from "react"
-import { StyleSheet, TouchableOpacity, View, type ViewStyle } from "react-native"
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  type ViewStyle,
+} from "react-native"
 
 import { colors, radius, spacing } from "../tokens"
 

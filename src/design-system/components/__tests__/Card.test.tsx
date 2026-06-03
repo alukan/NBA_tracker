@@ -9,7 +9,7 @@ test("renders without crashing", () => {
   render(
     <Card>
       <Text>Content</Text>
-    </Card>
+    </Card>,
   )
 })
 
@@ -19,7 +19,7 @@ describe("Card", () => {
     render(
       <Card>
         <Text>Hello from Card</Text>
-      </Card>
+      </Card>,
     )
     expect(screen.getByText("Hello from Card")).toBeTruthy()
   })
@@ -29,7 +29,7 @@ describe("Card", () => {
     render(
       <Card onPress={onPress}>
         <Text>Tap me</Text>
-      </Card>
+      </Card>,
     )
 
     fireEvent.press(screen.getByText("Tap me"))
@@ -47,7 +47,7 @@ describe("Card integration", () => {
         <Badge label="LIVE" color="red" />
         <Text variant="heading">Lakers vs Celtics</Text>
         <Text variant="score">110 – 108</Text>
-      </Card>
+      </Card>,
     )
 
     expect(screen.getByText("LIVE")).toBeTruthy()

@@ -3,10 +3,9 @@
  * Specific to the Teams tab entry point. Not intended for reuse.
  */
 
-import  { type NativeStackScreenProps } from "@react-navigation/native-stack"
+import { type NativeStackScreenProps } from "@react-navigation/native-stack"
 import { type ReactElement } from "react"
 import { StyleSheet, View } from "react-native"
-
 
 import { colors } from "@ds"
 import { type TeamInfo } from "@shared"

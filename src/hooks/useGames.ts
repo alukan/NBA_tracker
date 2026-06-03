@@ -31,32 +31,56 @@ export function useGames(): {
     setIsLoading(true)
     setError(null)
     fetchGames()
-      .then((data) => { setGames(data) })
+      .then((data) => {
+        setGames(data)
+      })
       .catch((e: unknown) => {
         setError(e instanceof Error ? e.message : "Failed to load games")
       })
-      .finally(() => { setIsLoading(false) })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [])
 
   const refresh = useCallback(() => {
     setRefreshing(true)
     setError(null)
     fetchGames()
-      .then((data) => { setGames(data); setHasMore(true) })
+      .then((data) => {
+        setGames(data)
+        setHasMore(true)
+      })
       .catch((e: unknown) => {
         setError(e instanceof Error ? e.message : "Failed to load games")
       })
-      .finally(() => { setRefreshing(false) })
+      .finally(() => {
+        setRefreshing(false)
+      })
   }, [])
 
   const loadMore = useCallback(() => {
     if (!hasMore || isLoadingMore) return
     setIsLoadingMore(true)
     fetchGames([7, 10, 14])
-      .then((data) => { setGames((prev) => [...prev, ...data]); setHasMore(false) })
-      .catch(() => { /* silently ignore load-more errors */ })
-      .finally(() => { setIsLoadingMore(false) })
+      .then((data) => {
+        setGames((prev) => [...prev, ...data])
+        setHasMore(false)
+      })
+      .catch(() => {
+        /* silently ignore load-more errors */
+      })
+      .finally(() => {
+        setIsLoadingMore(false)
+      })
   }, [hasMore, isLoadingMore])
 
-  return { games, isLoading, error, refreshing, refresh, isLoadingMore, loadMore }
+  return {
+    games,
+    isLoading,
+    error,
+    refreshing,
+    refresh,
+    isLoadingMore,
+    loadMore,
+  }
 }

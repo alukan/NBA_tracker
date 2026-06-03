@@ -5,35 +5,35 @@ import { defineConfig, globalIgnores } from "eslint/config"
 import pluginExpo from "eslint-plugin-expo"
 
 export default defineConfig(
-    globalIgnores(["dist/", "web-build/", "metro.config.js"]),
-    config,
-    {
-        plugins: {
-            expo: pluginExpo,
-        },
-        rules: {
-            "expo/use-dom-exports": "error",
-            "expo/no-env-var-destructuring": "error",
-            "expo/no-dynamic-env-var": "error",
-            "expo/prefer-box-shadow": "warn",
+  globalIgnores(["dist/", "web-build/", "metro.config.js"]),
+  config,
+  {
+    plugins: {
+      expo: pluginExpo,
+    },
+    rules: {
+      "expo/use-dom-exports": "error",
+      "expo/no-env-var-destructuring": "error",
+      "expo/no-dynamic-env-var": "error",
+      "expo/prefer-box-shadow": "warn",
 
-            // Prevent use of CJS `require` syntax unless importing assets to align with Metro behavior.
-            "@typescript-eslint/no-require-imports": [
-                "warn",
-                {
-                    allow: [
-                        "\\.(aac|aiff|avif|bmp|caf|db|gif|heic|html|jpeg|jpg|json|m4a|m4v|mov|mp3|mp4|mpeg|mpg|otf|pdf|png|psd|svg|ttf|wav|webm|webp|xml|yaml|yml|zip)$",
-                    ],
-                },
-            ],
+      // Prevent use of CJS `require` syntax unless importing assets to align with Metro behavior.
+      "@typescript-eslint/no-require-imports": [
+        "warn",
+        {
+          allow: [
+            "\\.(aac|aiff|avif|bmp|caf|db|gif|heic|html|jpeg|jpg|json|m4a|m4v|mov|mp3|mp4|mpeg|mpg|otf|pdf|png|psd|svg|ttf|wav|webm|webp|xml|yaml|yml|zip)$",
+          ],
         },
+      ],
     },
-    {
-        files: ["**/__tests__/**", "**/*.test.{ts,tsx}"],
-        rules: {
-            // Testing-library returns loosely typed nodes; unsafe access is expected
-            "@typescript-eslint/no-unsafe-member-access": "off",
-            "@typescript-eslint/no-unsafe-call": "off",
-        },
+  },
+  {
+    files: ["**/__tests__/**", "**/*.test.{ts,tsx}"],
+    rules: {
+      // Testing-library returns loosely typed nodes; unsafe access is expected
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
     },
+  },
 )

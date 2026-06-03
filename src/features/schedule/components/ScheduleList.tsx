@@ -13,7 +13,7 @@ import {
   View,
 } from "react-native"
 
-import { Text , colors, spacing } from "@ds"
+import { Text, colors, spacing } from "@ds"
 import { type Game } from "@shared"
 
 import { useScheduleSections } from "../../../hooks/useScheduleSections"
@@ -33,8 +33,15 @@ export function ScheduleList({
   spoilerFreeMode = false,
   use24HourTime = false,
 }: ScheduleListProps): ReactElement {
-  const { sections, isLoading, error, refreshing, onRefresh, onEndReached, isLoadingMore } =
-    useScheduleSections(selectedTeam)
+  const {
+    sections,
+    isLoading,
+    error,
+    refreshing,
+    onRefresh,
+    onEndReached,
+    isLoadingMore,
+  } = useScheduleSections(selectedTeam)
 
   if (isLoading) {
     return (

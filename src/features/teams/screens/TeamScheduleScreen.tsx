@@ -3,12 +3,11 @@
  * Shows last season's games for a specific team, paginated by display-side slicing.
  */
 
-import  { type NativeStackScreenProps } from "@react-navigation/native-stack"
+import { type NativeStackScreenProps } from "@react-navigation/native-stack"
 import { useCallback, type ReactElement } from "react"
 import { ActivityIndicator, SectionList, StyleSheet, View } from "react-native"
 
-
-import { Text , colors, spacing } from "@ds"
+import { Text, colors, spacing } from "@ds"
 import { type Game } from "@shared"
 
 import { useAppSettings } from "../../../context/SettingsContext"
@@ -21,7 +20,8 @@ type Props = NativeStackScreenProps<TeamsStackParamList, "TeamSchedule">
 export function TeamScheduleScreen({ route, navigation }: Props): ReactElement {
   const { team } = route.params
   const { settings } = useAppSettings()
-  const { sections, isLoading, error, onEndReached, isLoadingMore } = useTeamSchedule(team)
+  const { sections, isLoading, error, onEndReached, isLoadingMore } =
+    useTeamSchedule(team)
 
   const handlePressGame = useCallback(
     (game: Game) => {

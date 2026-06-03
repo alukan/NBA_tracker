@@ -17,13 +17,19 @@ type ChipProps = {
   onPress: () => void
 }
 
-export function Chip({ label, selected = false, onPress }: ChipProps): ReactElement {
+export function Chip({
+  label,
+  selected = false,
+  onPress,
+}: ChipProps): ReactElement {
   return (
     <TouchableOpacity
       style={[styles.chip, selected && styles.chipSelected]}
       onPress={onPress}
     >
-      <Text style={[styles.text, selected && styles.textSelected]}>{label}</Text>
+      <Text style={[styles.text, selected && styles.textSelected]}>
+        {label}
+      </Text>
     </TouchableOpacity>
   )
 }

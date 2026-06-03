@@ -18,7 +18,7 @@ describe("Text", () => {
     render(<Text color="red">Colored</Text>)
     const element = screen.getByText("Colored")
     expect(element.props.style).toEqual(
-      expect.arrayContaining([expect.objectContaining({ color: "red" })])
+      expect.arrayContaining([expect.objectContaining({ color: "red" })]),
     )
   })
 

@@ -7,8 +7,13 @@
 import { useState, type ReactElement } from "react"
 import { Image, StyleSheet, View } from "react-native"
 
-import { Badge, Card, Text , colors, spacing, radius } from "@ds"
-import { type Game, type GameStatus, formatGameTime, teamLogoUrl } from "@shared"
+import { Badge, Card, Text, colors, spacing, radius } from "@ds"
+import {
+  type Game,
+  type GameStatus,
+  formatGameTime,
+  teamLogoUrl,
+} from "@shared"
 
 type GameCardProps = {
   game: Game
@@ -32,7 +37,9 @@ function TeamLogo({ abbr }: { abbr: string }): ReactElement {
       source={{ uri: teamLogoUrl(abbr) }}
       style={styles.logo}
       resizeMode="contain"
-      onError={() => { setFailed(true) }}
+      onError={() => {
+        setFailed(true)
+      }}
     />
   )
 }
@@ -45,13 +52,24 @@ function WLBadge({ result }: { result: "W" | "L" }): ReactElement {
   )
 }
 
-export function GameCard({ game, onPress, spoilerFreeMode = false, use24HourTime = false, highlightTeam }: GameCardProps): ReactElement {
+export function GameCard({
+  game,
+  onPress,
+  spoilerFreeMode = false,
+  use24HourTime = false,
+  highlightTeam,
+}: GameCardProps): ReactElement {
   const isLive = game.status === "live"
   const hasScores = game.homeScore !== null && game.awayScore !== null
   const scoresHidden = spoilerFreeMode && hasScores
 
   let result: "W" | "L" | null = null
-  if (highlightTeam && game.status === "final" && game.homeScore !== null && game.awayScore !== null) {
+  if (
+    highlightTeam &&
+    game.status === "final" &&
+    game.homeScore !== null &&
+    game.awayScore !== null
+  ) {
     const isHome = game.homeTeam === highlightTeam
     const myScore = isHome ? game.homeScore : game.awayScore
     const theirScore = isHome ? game.awayScore : game.homeScore
@@ -61,7 +79,13 @@ export function GameCard({ game, onPress, spoilerFreeMode = false, use24HourTime
   return (
     <Card
       style={styles.card}
-      onPress={onPress != null ? () => { onPress(game) } : undefined}
+      onPress={
+        onPress != null
+          ? () => {
+              onPress(game)
+            }
+          : undefined
+      }
     >
       <View style={styles.row}>
         <View style={styles.teams}>
@@ -75,7 +99,9 @@ export function GameCard({ game, onPress, spoilerFreeMode = false, use24HourTime
         <View style={styles.right}>
           {result && <WLBadge result={result} />}
           {scoresHidden ? (
-            <Text variant="dim" color={colors.textFaint}>tap</Text>
+            <Text variant="dim" color={colors.textFaint}>
+              tap
+            </Text>
           ) : hasScores ? (
             <View style={styles.scores}>
               <Text
@@ -95,7 +121,9 @@ export function GameCard({ game, onPress, spoilerFreeMode = false, use24HourTime
               </Text>
             </View>
           ) : (
-            <Text variant="dim">{formatGameTime(game.time, use24HourTime)}</Text>
+            <Text variant="dim">
+              {formatGameTime(game.time, use24HourTime)}
+            </Text>
           )}
         </View>
       </View>

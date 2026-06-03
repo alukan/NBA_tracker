@@ -5,6 +5,7 @@ A simple React Native app built with Expo and TypeScript that lets users follow 
 ## Features
 
 ### Current Features
+
 - Select favorite NBA teams
 - View upcoming games
 - Live score tracking
@@ -15,6 +16,7 @@ A simple React Native app built with Expo and TypeScript that lets users follow 
 - Dark mode UI
 
 ## Potential Future Features
+
 - Push notifications for games
 - Home screen widgets
 - Player statistics
@@ -27,6 +29,7 @@ A simple React Native app built with Expo and TypeScript that lets users follow 
 - Personalized game recommendations
 
 ## Tech Stack
+
 - React Native
 - Expo
 - TypeScript
@@ -35,8 +38,10 @@ A simple React Native app built with Expo and TypeScript that lets users follow 
 - NativeWind
 
 ## APIs
+
 - balldontlie API
 - ESPN API (unofficial)
 
 ## Goal
+
 The goal of this project is to build a clean and responsive mobile NBA companion app while learning modern React Native development practices.

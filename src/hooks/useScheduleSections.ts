@@ -24,12 +24,21 @@ export function useScheduleSections(selectedTeam: string | null): {
   isLoadingMore: boolean
   onEndReached: () => void
 } {
-  const { games, isLoading, error, refreshing, refresh, isLoadingMore, loadMore } =
-    useGames()
+  const {
+    games,
+    isLoading,
+    error,
+    refreshing,
+    refresh,
+    isLoadingMore,
+    loadMore,
+  } = useGames()
 
   const sections = useMemo<Section[]>(() => {
     const filtered = selectedTeam
-      ? games.filter((g) => g.homeTeam === selectedTeam || g.awayTeam === selectedTeam)
+      ? games.filter(
+          (g) => g.homeTeam === selectedTeam || g.awayTeam === selectedTeam,
+        )
       : games
 
     const byDate = new Map<string, Game[]>()
@@ -39,7 +48,10 @@ export function useScheduleSections(selectedTeam: string | null): {
       byDate.set(game.date, bucket)
     }
 
-    return Array.from(byDate.entries()).map(([title, data]) => ({ title, data }))
+    return Array.from(byDate.entries()).map(([title, data]) => ({
+      title,
+      data,
+    }))
   }, [games, selectedTeam])
 
   return {

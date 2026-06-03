@@ -6,28 +6,41 @@
  */
 
 import { type ReactElement } from "react"
-import { Text as RNText, StyleSheet, type TextProps as RNTextProps } from "react-native"
+import {
+  Text as RNText,
+  StyleSheet,
+  type TextProps as RNTextProps,
+} from "react-native"
 
 import { colors, fontSize, fontWeight, letterSpacing } from "../tokens"
 
 export type TextVariant =
-  | "heading"   // Large, heavy — team names, screen titles
+  | "heading" // Large, heavy — team names, screen titles
   | "subheading" // Medium bold — card titles, list items
-  | "score"     // Extra-large bold — live/final score display
-  | "body"      // Default reading text
-  | "dim"       // Secondary/tertiary info in a muted color
-  | "caption"   // Small supplemental label
-  | "label"     // All-caps section header with letter spacing
+  | "score" // Extra-large bold — live/final score display
+  | "body" // Default reading text
+  | "dim" // Secondary/tertiary info in a muted color
+  | "caption" // Small supplemental label
+  | "label" // All-caps section header with letter spacing
 
 type TextProps = {
   variant?: TextVariant
   color?: string
 } & RNTextProps
 
-export function Text({ variant = "body", color, style, ...props }: TextProps): ReactElement {
+export function Text({
+  variant = "body",
+  color,
+  style,
+  ...props
+}: TextProps): ReactElement {
   return (
     <RNText
-      style={[variantStyles[variant], color != null ? { color } : undefined, style]}
+      style={[
+        variantStyles[variant],
+        color != null ? { color } : undefined,
+        style,
+      ]}
       {...props}
     />
   )

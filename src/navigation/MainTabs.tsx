@@ -16,7 +16,10 @@ export default function MainTabs(): ReactElement {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: colors.header, borderTopColor: colors.border },
+        tabBarStyle: {
+          backgroundColor: colors.header,
+          borderTopColor: colors.border,
+        },
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.textDim,
       }}
@@ -25,21 +28,27 @@ export default function MainTabs(): ReactElement {
         name="Schedule"
         component={ScheduleStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: fontSize.xxl }}>📅</Text>,
+          tabBarIcon: ({ color }) => (
+            <Text style={{ color, fontSize: fontSize.xxl }}>📅</Text>
+          ),
         }}
       />
       <Tab.Screen
         name="Teams"
         component={TeamsStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: fontSize.xxl }}>🏀</Text>,
+          tabBarIcon: ({ color }) => (
+            <Text style={{ color, fontSize: fontSize.xxl }}>🏀</Text>
+          ),
         }}
       />
       <Tab.Screen
         name="Settings"
         component={SettingsStack}
         options={{
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: fontSize.xxl }}>⚙️</Text>,
+          tabBarIcon: ({ color }) => (
+            <Text style={{ color, fontSize: fontSize.xxl }}>⚙️</Text>
+          ),
         }}
       />
     </Tab.Navigator>

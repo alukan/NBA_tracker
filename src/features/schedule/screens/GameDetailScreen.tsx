@@ -8,8 +8,7 @@ import { useRoute, type RouteProp } from "@react-navigation/native"
 import { type ReactElement } from "react"
 import { StyleSheet, View } from "react-native"
 
-
-import { Badge, Card, Text , colors, fontSize, spacing } from "@ds"
+import { Badge, Card, Text, colors, fontSize, spacing } from "@ds"
 
 import { type ScheduleStackParamList } from "../../../navigation/types"
 
@@ -37,7 +36,9 @@ export function GameDetailScreen(): ReactElement {
         <View style={styles.matchup}>
           <View style={styles.team}>
             <Text variant="heading">{game.awayTeam}</Text>
-            <Text variant="caption" style={styles.teamLabel}>Away</Text>
+            <Text variant="caption" style={styles.teamLabel}>
+              Away
+            </Text>
           </View>
 
           {hasScores ? (
@@ -56,14 +57,20 @@ export function GameDetailScreen(): ReactElement {
 
           <View style={styles.team}>
             <Text variant="heading">{game.homeTeam}</Text>
-            <Text variant="caption" style={styles.teamLabel}>Home</Text>
+            <Text variant="caption" style={styles.teamLabel}>
+              Home
+            </Text>
           </View>
         </View>
 
         <View style={styles.meta}>
-          <Text variant="body" color={colors.textMuted}>{game.date}</Text>
+          <Text variant="body" color={colors.textMuted}>
+            {game.date}
+          </Text>
           <Text variant="dim">·</Text>
-          <Text variant="body" color={colors.textMuted}>{game.time}</Text>
+          <Text variant="body" color={colors.textMuted}>
+            {game.time}
+          </Text>
         </View>
       </Card>
     </View>

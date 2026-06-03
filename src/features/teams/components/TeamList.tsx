@@ -4,9 +4,15 @@
  */
 
 import { useState, type ReactElement } from "react"
-import { Image, FlatList, StyleSheet, TouchableOpacity, View } from "react-native"
+import {
+  Image,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native"
 
-import { Text , colors, spacing, radius } from "@ds"
+import { Text, colors, spacing, radius } from "@ds"
 import { NBA_TEAMS, teamLogoUrl, type TeamInfo } from "@shared"
 
 type TeamListProps = {
@@ -18,7 +24,9 @@ function TeamLogo({ abbr }: { abbr: string }): ReactElement {
   if (failed) {
     return (
       <View style={styles.logoFallback}>
-        <Text variant="caption" style={styles.logoFallbackText}>{abbr}</Text>
+        <Text variant="caption" style={styles.logoFallbackText}>
+          {abbr}
+        </Text>
       </View>
     )
   }
@@ -27,20 +35,36 @@ function TeamLogo({ abbr }: { abbr: string }): ReactElement {
       source={{ uri: teamLogoUrl(abbr) }}
       style={styles.logo}
       resizeMode="contain"
-      onError={() => { setFailed(true) }}
+      onError={() => {
+        setFailed(true)
+      }}
     />
   )
 }
 
-function TeamRow({ team, onSelect }: { team: TeamInfo; onSelect: (t: TeamInfo) => void }): ReactElement {
+function TeamRow({
+  team,
+  onSelect,
+}: {
+  team: TeamInfo
+  onSelect: (t: TeamInfo) => void
+}): ReactElement {
   return (
-    <TouchableOpacity style={styles.row} onPress={() => { onSelect(team) }} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={styles.row}
+      onPress={() => {
+        onSelect(team)
+      }}
+      activeOpacity={0.7}
+    >
       <TeamLogo abbr={team.abbr} />
       <View style={styles.info}>
         <Text variant="subheading">{team.city}</Text>
         <Text variant="caption">{team.name}</Text>
       </View>
-      <Text variant="dim" style={styles.chevron}>›</Text>
+      <Text variant="dim" style={styles.chevron}>
+        ›
+      </Text>
     </TouchableOpacity>
   )
 }

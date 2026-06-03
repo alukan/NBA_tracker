@@ -7,7 +7,7 @@
 import { useRef, type ReactElement } from "react"
 import { ScrollView, StyleSheet, View } from "react-native"
 
-import { Chip, Text , colors, spacing } from "@ds"
+import { Chip, Text, colors, spacing } from "@ds"
 import { NBA_TEAMS } from "@shared"
 
 type TeamSelectorProps = {
@@ -15,12 +15,17 @@ type TeamSelectorProps = {
   onSelect: (team: string) => void
 }
 
-export function TeamSelector({ selected, onSelect }: TeamSelectorProps): ReactElement {
+export function TeamSelector({
+  selected,
+  onSelect,
+}: TeamSelectorProps): ReactElement {
   const scrollRef = useRef<ScrollView>(null)
 
   return (
     <View style={styles.container}>
-      <Text variant="label" style={styles.sectionLabel}>Favorite Team</Text>
+      <Text variant="label" style={styles.sectionLabel}>
+        Favorite Team
+      </Text>
       <ScrollView
         ref={scrollRef}
         horizontal
@@ -32,7 +37,9 @@ export function TeamSelector({ selected, onSelect }: TeamSelectorProps): ReactEl
             key={abbr}
             label={abbr}
             selected={selected === abbr}
-            onPress={() => { onSelect(abbr) }}
+            onPress={() => {
+              onSelect(abbr)
+            }}
           />
         ))}
       </ScrollView>
