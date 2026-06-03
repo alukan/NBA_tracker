@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "M11_ReactNative",
-    "slug": "M11_ReactNative",
+    "slug": "nba-schedule-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "71201e9e-506f-4ec4-a216-4bacc197bf7e"
+      }
+    },
+    "owner": "alukan"
   }
 }
