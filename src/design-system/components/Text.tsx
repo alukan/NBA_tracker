@@ -14,7 +14,7 @@ import {
 
 import { colors, fontSize, fontWeight, letterSpacing } from "../tokens"
 
-export type TextVariant =
+type TextVariant =
   | "heading" // Large, heavy — team names, screen titles
   | "subheading" // Medium bold — card titles, list items
   | "score" // Extra-large bold — live/final score display
