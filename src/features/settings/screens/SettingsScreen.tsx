@@ -4,11 +4,18 @@
  */
 
 import { type ReactElement } from "react"
-import { ScrollView, StyleSheet, Switch, TextInput, View } from "react-native"
+import { Alert, Pressable, ScrollView, StyleSheet, Switch, TextInput, View } from "react-native"
 
 import { Text, colors, fontSize, spacing } from "@ds"
 
 import { useAppSettings } from "../../../context/SettingsContext"
+import { fetchGames } from "../../../services/gamesApi"
+import {
+  cancelAllNotifications,
+  requestNotificationPermission,
+  scheduleTestNotification,
+  scheduleUpcomingGameNotifications,
+} from "../../../services/notificationService"
 
 export function SettingsScreen(): ReactElement {
   const { settings, updateSetting } = useAppSettings()
@@ -44,13 +51,39 @@ export function SettingsScreen(): ReactElement {
           <Text variant="body">Enable Notifications</Text>
           <Switch
             value={settings.notificationsEnabled}
-            onValueChange={(val) => {
+            onValueChange={async (val) => {
+              if (val) {
+                const granted = await requestNotificationPermission()
+                if (!granted) {
+                  Alert.alert(
+                    "Permission Required",
+                    "Enable notifications in your device settings to receive game reminders.",
+                  )
+                  return
+                }
+                const games = await fetchGames([0, 1, 2, 3])
+                await scheduleUpcomingGameNotifications(games)
+              } else {
+                await cancelAllNotifications()
+              }
               updateSetting("notificationsEnabled", val)
             }}
             trackColor={{ false: colors.border, true: colors.accent }}
             thumbColor={colors.text}
           />
         </View>
+        {settings.notificationsEnabled && (
+          <Pressable
+            style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
+            onPress={async () => {
+              await scheduleTestNotification()
+              Alert.alert("Test Sent", "You'll receive a notification in 5 seconds.")
+            }}
+          >
+            <Text variant="body">Test Notification</Text>
+            <Text variant="dim">Fires in 5 seconds</Text>
+          </Pressable>
+        )}
         <View style={styles.row}>
           <View style={styles.rowLabel}>
             <Text variant="body">Spoiler-Free Mode</Text>
@@ -126,5 +159,8 @@ const styles = StyleSheet.create({
   },
   rowLabel: {
     gap: spacing.xs,
+  },
+  rowPressed: {
+    opacity: 0.5,
   },
 })

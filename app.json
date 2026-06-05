@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "M11_ReactNative",
+    "name": "nba-schedule-app",
     "slug": "nba-schedule-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,7 +13,9 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.alukan.nbaschedule",
+      "entitlements": {}
     },
     "android": {
       "package": "com.alukan.nbaschedule",
