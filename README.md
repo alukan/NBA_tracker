@@ -10,19 +10,19 @@ The app is a React Native application built on Expo SDK 56, written in TypeScrip
 
 **Tech stack:**
 
-| Area | Tool |
-|---|---|
-| Framework | React Native 0.85 / Expo SDK 56 |
-| Language | TypeScript 6 (strict) |
-| Navigation | React Navigation 7 (native-stack, bottom-tabs) |
-| State / persistence | React Context + AsyncStorage |
-| Notifications | expo-notifications (local, on-device) |
-| Haptics | expo-haptics |
-| Testing | Jest + jest-expo + React Testing Library |
-| Linting | ESLint 9 (`@christopherjbaker/eslint-config/react-strict`) + eslint-plugin-expo |
-| Formatting | Prettier |
-| Dead-code detection | Knip |
-| External API | ESPN (unofficial, no auth) |
+| Area                | Tool                                                                            |
+| ------------------- | ------------------------------------------------------------------------------- |
+| Framework           | React Native 0.85 / Expo SDK 56                                                 |
+| Language            | TypeScript 6 (strict)                                                           |
+| Navigation          | React Navigation 7 (native-stack, bottom-tabs)                                  |
+| State / persistence | React Context + AsyncStorage                                                    |
+| Notifications       | expo-notifications (local, on-device)                                           |
+| Haptics             | expo-haptics                                                                    |
+| Testing             | Jest + jest-expo + React Testing Library                                        |
+| Linting             | ESLint 9 (`@christopherjbaker/eslint-config/react-strict`) + eslint-plugin-expo |
+| Formatting          | Prettier                                                                        |
+| Dead-code detection | Knip                                                                            |
+| External API        | ESPN (unofficial, no auth)                                                      |
 
 ## Getting Started
 

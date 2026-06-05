@@ -34,7 +34,7 @@ jobs:
         run: npm run format:check
 
       - name: Knip
-        run: npm run knip
+        run: npm run check:knip
 
       - name: Tests
         run: npm test -- --ci --passWithNoTests

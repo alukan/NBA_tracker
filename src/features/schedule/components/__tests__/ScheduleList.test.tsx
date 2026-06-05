@@ -56,7 +56,9 @@ describe("ScheduleList", () => {
       isLoadingMore: false,
     })
     const { UNSAFE_getAllByType } = render(<ScheduleList selectedTeam={null} />)
-    const { ActivityIndicator } = jest.requireActual<{ ActivityIndicator: React.ComponentType }>("react-native")
+    const { ActivityIndicator } = jest.requireActual<{
+      ActivityIndicator: React.ComponentType
+    }>("react-native")
     expect(UNSAFE_getAllByType(ActivityIndicator).length).toBeGreaterThan(0)
   })
 

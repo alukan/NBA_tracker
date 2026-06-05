@@ -4,7 +4,15 @@
  */
 
 import { type ReactElement } from "react"
-import { Alert, Pressable, ScrollView, StyleSheet, Switch, TextInput, View } from "react-native"
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  TextInput,
+  View,
+} from "react-native"
 
 import { Text, colors, fontSize, spacing } from "@ds"
 
@@ -77,7 +85,10 @@ export function SettingsScreen(): ReactElement {
             style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
             onPress={async () => {
               await scheduleTestNotification()
-              Alert.alert("Test Sent", "You'll receive a notification in 5 seconds.")
+              Alert.alert(
+                "Test Sent",
+                "You'll receive a notification in 5 seconds.",
+              )
             }}
           >
             <Text variant="body">Test Notification</Text>

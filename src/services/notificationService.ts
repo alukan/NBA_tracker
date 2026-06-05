@@ -3,7 +3,7 @@
  * NBA game reminders (30 min before tip-off) and a test notification.
  */
 
-import { PermissionStatus } from "expo-modules-core"
+import { PermissionStatus } from "expo"
 import * as Notifications from "expo-notifications"
 
 import { type Game } from "@shared"
