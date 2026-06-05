@@ -3,6 +3,7 @@
  * NBA game reminders (30 min before tip-off) and a test notification.
  */
 
+import { PermissionStatus } from "expo-modules-core"
 import * as Notifications from "expo-notifications"
 
 import { type Game } from "@shared"
@@ -19,9 +20,9 @@ Notifications.setNotificationHandler({
 
 export async function requestNotificationPermission(): Promise<boolean> {
   const { status: existing } = await Notifications.getPermissionsAsync()
-  if (existing === "granted") return true
+  if (existing === PermissionStatus.GRANTED) return true
   const { status } = await Notifications.requestPermissionsAsync()
-  return status === "granted"
+  return status === PermissionStatus.GRANTED
 }
 
 /**

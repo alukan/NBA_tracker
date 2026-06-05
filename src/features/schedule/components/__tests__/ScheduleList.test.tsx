@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react-native"
+import type React from "react"
 
 import { ScheduleList } from "../ScheduleList"
 
@@ -15,10 +16,8 @@ jest.mock("../../../../hooks/useScheduleSections", () => ({
 }))
 
 function getMock() {
-  return (
-    jest.requireMock("../../../../hooks/useScheduleSections") as {
-      useScheduleSections: jest.Mock
-    }
+  return jest.requireMock<{ useScheduleSections: jest.Mock }>(
+    "../../../../hooks/useScheduleSections",
   ).useScheduleSections
 }
 
@@ -57,9 +56,7 @@ describe("ScheduleList", () => {
       isLoadingMore: false,
     })
     const { UNSAFE_getAllByType } = render(<ScheduleList selectedTeam={null} />)
-    const { ActivityIndicator } = jest.requireActual(
-      "react-native",
-    ) as typeof import("react-native")
+    const { ActivityIndicator } = jest.requireActual<{ ActivityIndicator: React.ComponentType }>("react-native")
     expect(UNSAFE_getAllByType(ActivityIndicator).length).toBeGreaterThan(0)
   })
 
